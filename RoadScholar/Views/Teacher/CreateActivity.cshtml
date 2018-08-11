@@ -1,0 +1,24 @@
+﻿@model RoadScholar.Models.Teacher
+
+@{
+    ViewBag.Title = "Create Activity";
+}
+
+<hr />
+
+<div class="row col-xs-12">
+    <div>
+        <a href="/Teacher/CreateShortAnswerQuestion" class="btn btn-lg btn-warning col-xs-2 col-xs-offset-1"><span class="glyphicon glyphicon-question-sign"></span> @Resources.ShortAnswerQuestion</a>
+    </div>
+    <div>
+        <a href="/Teacher/CreateTrueFalseQuestion" class="btn btn-lg btn-success col-xs-2 col-xs-offset-2"><span class="glyphicon glyphicon-question-sign"></span> @Resources.TrueFalseQuestion</a>
+    </div>
+    <div>
+        <a href="/Teacher/CreateAmericanQuestion" class="btn btn-lg btn-danger col-xs-2 col-xs-offset-2"><span class="glyphicon glyphicon-question-sign"></span> @Resources.AmericanQuestion</a>
+    </div>
+</div>
+
+<div id="createExpButton" class="row col-xs-12">
+    <a href="/Teacher/CreateExperiment" class="btn btn-lg btn-primary col-xs-3 col-xs-offset-3"><span class="glyphicon glyphicon-filter"></span> @Resources.Experiment</a>
+</div>
+

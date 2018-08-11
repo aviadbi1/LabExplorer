@@ -1,0 +1,58 @@
+﻿@model RoadScholar.Models.TrueFalseQuestion
+@{
+    ViewBag.Title = Resources.HistoryForTheActivity + " \"" + Model.ActivityName + "\", " + TempData["StudentName"];
+}
+
+<h2>@ViewBag.Title</h2>
+
+<u>@Resources.TheQuestion</u>
+<br>
+@Model.question
+<br>
+<br>
+<u>@Resources.ThePossibleAnswers</u>
+<br>
+@Resources.True
+<br>
+@Resources.False
+<br>
+<br>
+<u>@Resources.TheCorrectAnswer</u>
+<br>
+
+@{ 
+    if(Model.correctAnswerBool == true)
+    {
+        <text>@Resources.True</text>
+    }
+    else
+    {
+        <text>@Resources.False</text>
+    }
+}
+
+<br>
+<br>
+<u>@Resources.TheExplanationIs</u>
+<br>
+@Model.explaination
+<br>
+<br>
+
+
+
+<u>@Resources.StudentAnswer</u>
+
+
+
+<br>
+@{
+    if ((string)(TempData["StudentAnswer"]) == "True")
+    {
+        <text>@Resources.True</text>
+    }
+    else
+    {
+        <text>@Resources.False</text>
+    }
+}

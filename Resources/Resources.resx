@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About us</value>
+  </data>
+  <data name="ChooseLanguage" xml:space="preserve">
+    <value>Choose Language</value>
+  </data>
+  <data name="ClickHereToLogIn" xml:space="preserve">
+    <value>Click here to Log in</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact us</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>Create new account.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="emailConfirmation" xml:space="preserve">
+    <value>Thank you for confirming your email. Please</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="HistoryByActivity" xml:space="preserve">
+    <value>History By Activity</value>
+  </data>
+  <data name="HistoryByStudent" xml:space="preserve">
+    <value>History By Student</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="InvalidLogin" xml:space="preserve">
+    <value>password/email are incorrect</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordMustBeAtLeast6" xml:space="preserve">
+    <value>The password must be at least 6 characters long</value>
+  </data>
+  <data name="PasswordsDontMatch" xml:space="preserve">
+    <value>The password and confirmation password do not match</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="projectName" xml:space="preserve">
+    <value>Lab Explorer</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterAsNewUser" xml:space="preserve">
+    <value>Register as new user</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="RoomNumber" xml:space="preserve">
+    <value>Room Number</value>
+  </data>
+  <data name="ShowActivities" xml:space="preserve">
+    <value>Show Participated Activities</value>
+  </data>
+  <data name="ShowLog" xml:space="preserve">
+    <value>Show Log</value>
+  </data>
+  <data name="StudentLogin" xml:space="preserve">
+    <value>Student Login</value>
+  </data>
+  <data name="TeacherLogin" xml:space="preserve">
+    <value>Teacher Login</value>
+  </data>
+  <data name="TeacherRegister" xml:space="preserve">
+    <value>Teacher Register</value>
+  </data>
+  <data name="useAnotherServiceToLogIn" xml:space="preserve">
+    <value>Use another service to log in.</value>
+  </data>
+  <data name="ActivitiesOfStudent" xml:space="preserve">
+    <value>Activities Of The Student</value>
+  </data>
+  <data name="ShowActivityLog" xml:space="preserve">
+    <value>Show Activity Log</value>
+  </data>
+  <data name="ActivityName" xml:space="preserve">
+    <value>Activity Name</value>
+  </data>
+  <data name="HistoryForTheActivity" xml:space="preserve">
+    <value>History For The Activity</value>
+  </data>
+  <data name="StudentAnswer" xml:space="preserve">
+    <value>The student answer was:</value>
+  </data>
+  <data name="ThePossibleAnswers" xml:space="preserve">
+    <value>The possible answers:</value>
+  </data>
+  <data name="TheQuestion" xml:space="preserve">
+    <value>The Question:</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="TheCorrectAnswer" xml:space="preserve">
+    <value>The correct answer was:</value>
+  </data>
+  <data name="Explaination" xml:space="preserve">
+    <value>Explaination</value>
+  </data>
+  <data name="CreateActivity" xml:space="preserve">
+    <value>Create Activity</value>
+  </data>
+  <data name="ExistingActivities" xml:space="preserve">
+    <value>Existing Activities</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="RegisterStudent" xml:space="preserve">
+    <value>Register Student</value>
+  </data>
+  <data name="GroupCreation" xml:space="preserve">
+    <value>Group Creation</value>
+  </data>
+  <data name="AmericanQuestion" xml:space="preserve">
+    <value>Multiple Choice Question</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Upload file</value>
+  </data>
+  <data name="waitScreen" xml:space="preserve">
+    <value>wait screen</value>
+  </data>
+  <data name="UploadExplanation" xml:space="preserve">
+    <value>You can register number of students with CSV file</value>
+  </data>
+  <data name="AddRow" xml:space="preserve">
+    <value>Add Row</value>
+  </data>
+  <data name="DeleteRow" xml:space="preserve">
+    <value>Delete Row</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="OpenNewGroup" xml:space="preserve">
+    <value>Open New Group</value>
+  </data>
+  <data name="ShowNoAvailableGroups" xml:space="preserve">
+    <value>No Available Groups</value>
+  </data>
+  <data name="CreateGroup" xml:space="preserve">
+    <value>Create Group</value>
+  </data>
+  <data name="CollaborativeGraph" xml:space="preserve">
+    <value>Collaborative Graph</value>
+  </data>
+  <data name="ExperimentGraph" xml:space="preserve">
+    <value>Experiment Graph</value>
+  </data>
+  <data name="ProgressGraph" xml:space="preserve">
+    <value>Progress Graph</value>
+  </data>
+  <data name="StudentErrorMsg1" xml:space="preserve">
+    <value>One of the students doesn't register in the system</value>
+  </data>
+  <data name="StudentErrorMsg2" xml:space="preserve">
+    <value>One of the students is already registered in a different group</value>
+  </data>
+  <data name="CreateMeasurementSet" xml:space="preserve">
+    <value>Create measurements set</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>Instruction</value>
+  </data>
+  <data name="MeasurementsSet" xml:space="preserve">
+    <value>Measurements Set</value>
+  </data>
+  <data name="PleaseChooseTheStepYouWantToAdd" xml:space="preserve">
+    <value>Please choose the step you want to add</value>
+  </data>
+  <data name="ShortAnswerQuestion" xml:space="preserve">
+    <value>Short Answer Question</value>
+  </data>
+  <data name="TrueFalseQuestion" xml:space="preserve">
+    <value>True/False Question</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="PleaseChooseNumberOfMeasurementsInSet" xml:space="preserve">
+    <value>Please choose number of measurements in set</value>
+  </data>
+  <data name="PleaseChooseTheTimeBetweenEachTwoMeasurements" xml:space="preserve">
+    <value>Please choose the time (in seconds) between each two measurements</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="AddMeasuresToSet" xml:space="preserve">
+    <value>Add measures to set</value>
+  </data>
+  <data name="PleaseChooseNumberOfParametersToMeasure" xml:space="preserve">
+    <value>Please choose number of parameters to measure</value>
+  </data>
+  <data name="AddMeasure" xml:space="preserve">
+    <value>Add measure</value>
+  </data>
+  <data name="AddParameterToMeasure" xml:space="preserve">
+    <value>Add parameter to measure</value>
+  </data>
+  <data name="DeleteMeasure" xml:space="preserve">
+    <value>Delete measure</value>
+  </data>
+  <data name="DeleteParameterToMeasure" xml:space="preserve">
+    <value>Delete parameter to measure</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="CreateAmericanQuestion" xml:space="preserve">
+    <value>Create Multiple Choice Question</value>
+  </data>
+  <data name="CreateShortAnswerQuestion" xml:space="preserve">
+    <value>Create Short Answer Question</value>
+  </data>
+  <data name="CreateTrueFalseQuestion" xml:space="preserve">
+    <value>Create True/False Question</value>
+  </data>
+  <data name="EnterTheCorrectAnswer" xml:space="preserve">
+    <value>Enter the correct answer</value>
+  </data>
+  <data name="EnterTheNameOfTheActivity" xml:space="preserve">
+    <value>Enter the name of the activity</value>
+  </data>
+  <data name="EnterYourQuestion" xml:space="preserve">
+    <value>Enter your question</value>
+  </data>
+  <data name="Experiment" xml:space="preserve">
+    <value>Experiment</value>
+  </data>
+  <data name="FirstAnswer" xml:space="preserve">
+    <value>First Answer</value>
+  </data>
+  <data name="FourthAnswer" xml:space="preserve">
+    <value>Fourth Answer</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hi</value>
+  </data>
+  <data name="SecondAnswer" xml:space="preserve">
+    <value>Second Answer</value>
+  </data>
+  <data name="ThirdAnswer" xml:space="preserve">
+    <value>Third Answer</value>
+  </data>
+  <data name="AddStep" xml:space="preserve">
+    <value>Add Step</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Answer</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="CreateExperiment" xml:space="preserve">
+    <value>Create Experiment</value>
+  </data>
+  <data name="CreateQuestion" xml:space="preserve">
+    <value>Create Question</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ExperimentQuestion" xml:space="preserve">
+    <value>Experiment Question</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="GroupPreferences" xml:space="preserve">
+    <value>Group Preferences</value>
+  </data>
+  <data name="HideAnswers" xml:space="preserve">
+    <value>Hide Answers</value>
+  </data>
+  <data name="MaxStudentsPerGroup" xml:space="preserve">
+    <value>Max Students Per Group</value>
+  </data>
+  <data name="NumberOfGroups" xml:space="preserve">
+    <value>Number Of Groups</value>
+  </data>
+  <data name="SetAsActive" xml:space="preserve">
+    <value>Set As Active</value>
+  </data>
+  <data name="ShowAnswers" xml:space="preserve">
+    <value>Show Answers</value>
+  </data>
+  <data name="ShowCollaborativeGraph" xml:space="preserve">
+    <value>Show Collaborative Graph</value>
+  </data>
+  <data name="ShowProgressGraph" xml:space="preserve">
+    <value>Show Progress Graph</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="FinishAndSave" xml:space="preserve">
+    <value>Finish And Save</value>
+  </data>
+  <data name="AnonymousAnswers" xml:space="preserve">
+    <value>Anonymous Answers?</value>
+  </data>
+  <data name="AmericanHistory" xml:space="preserve">
+    <value>American Question History</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="HistoryDeleteAlert" xml:space="preserve">
+    <value>Deleting history of an activity will result in deleting this activity histoy from all students</value>
+  </data>
+  <data name="ShortHistory" xml:space="preserve">
+    <value>Short Answer Question History</value>
+  </data>
+  <data name="TFQHistory" xml:space="preserve">
+    <value>True/False Question History</value>
+  </data>
+  <data name="YourAnswer" xml:space="preserve">
+    <value>Your Answer</value>
+  </data>
+  <data name="AnswerSubmitted" xml:space="preserve">
+    <value>Your answer was submitted successfuly</value>
+  </data>
+  <data name="PleaseChooseTimeToEnterMeasureInSeconds" xml:space="preserve">
+    <value>Please choose time (in seconds) to enter measurement </value>
+  </data>
+  <data name="ImageNotFound" xml:space="preserve">
+    <value>Image Not Found</value>
+  </data>
+  <data name="VideoNotFound" xml:space="preserve">
+    <value>Video Not Found</value>
+  </data>
+  <data name="AddInstructionsForMeasures" xml:space="preserve">
+    <value>Add instructions for measures (For each parameter)</value>
+  </data>
+  <data name="AllOfTheStudentsGotTheirPermissions" xml:space="preserve">
+    <value>All of the students got their permissions</value>
+  </data>
+  <data name="AllTheOtherStudentsWereRegistered" xml:space="preserve">
+    <value>all the other students were registered.</value>
+  </data>
+  <data name="LoginInvalid" xml:space="preserve">
+    <value>Invalid Login </value>
+  </data>
+  <data name="TheActivitiesHistoryHaveBeenDeletedSuccessfullyForStudent" xml:space="preserve">
+    <value>The activities history have been deleted successfully for student: </value>
+  </data>
+  <data name="TheActivityHaveBeenDeletedSuccessfully" xml:space="preserve">
+    <value>The activity have been deleted successfully:</value>
+  </data>
+  <data name="TheActivityHistoryHaveBeenDeletedSuccessfullyForActivity" xml:space="preserve">
+    <value>The activity history have been deleted successfully for activity: </value>
+  </data>
+  <data name="ThoseStudentsAreAlreadyRegistered" xml:space="preserve">
+    <value>Those students are already registered: </value>
+  </data>
+  <data name="ShowExplanation" xml:space="preserve">
+    <value>Show Explanation</value>
+  </data>
+  <data name="HideExplanation" xml:space="preserve">
+    <value>Hide Explanation</value>
+  </data>
+  <data name="TheExplanationIs" xml:space="preserve">
+    <value>Explanation:</value>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Manage Account</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Password Changed Successfully</value>
+  </data>
+  <data name="YouAreAlreadyInAGroup" xml:space="preserve">
+    <value>You can not open a new group, because you are already in an existing group</value>
+  </data>
+  <data name="ExperimentHistory" xml:space="preserve">
+    <value>Experiment History</value>
+  </data>
+  <data name="ThereIsNoActivityActivated" xml:space="preserve">
+    <value>There is no activity activated right now</value>
+  </data>
+  <data name="AnswerStringRequired" xml:space="preserve">
+    <value>You have to fill all 4 answers</value>
+  </data>
+  <data name="correctAnswerStringRequired" xml:space="preserve">
+    <value>Correct Answer Required</value>
+  </data>
+  <data name="questionStringRequired" xml:space="preserve">
+    <value>Question Required</value>
+  </data>
+  <data name="Accompanying" xml:space="preserve">
+    <value>Accompanying research process in the classroom and in the lab</value>
+  </data>
+  <data name="ActivityNameRequired" xml:space="preserve">
+    <value>Activity Name Required</value>
+  </data>
+  <data name="AnswerRequired" xml:space="preserve">
+    <value>Answer Required</value>
+  </data>
+  <data name="CommandRequired" xml:space="preserve">
+    <value>Command Required</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Email Required</value>
+  </data>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>First Name Required</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Last Name Required</value>
+  </data>
+  <data name="MaxStudentPerGroupRequired" xml:space="preserve">
+    <value>Max Student Per Group Required</value>
+  </data>
+  <data name="NumberOfGroupsRequired" xml:space="preserve">
+    <value>Number Of Groups Required</value>
+  </data>
+  <data name="PhoneNumberRequired" xml:space="preserve">
+    <value>Phone Number Required</value>
+  </data>
+  <data name="TitleRequired" xml:space="preserve">
+    <value>Title Required</value>
+  </data>
+  <data name="URLRequired" xml:space="preserve">
+    <value>URL Required</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password Required</value>
+  </data>
+  <data name="EnterTheImageURL" xml:space="preserve">
+    <value>Enter the image URL:</value>
+  </data>
+  <data name="EnterTheInstruction" xml:space="preserve">
+    <value>Enter the instruction:</value>
+  </data>
+  <data name="EnterTheNameOfTheImage" xml:space="preserve">
+    <value>Enter the name of the image:</value>
+  </data>
+  <data name="EnterTheNameOfTheInstruction" xml:space="preserve">
+    <value>Enter the name of the instruction:</value>
+  </data>
+  <data name="EnterTheNameOfTheVideo" xml:space="preserve">
+    <value>Enter the name of the video:</value>
+  </data>
+  <data name="EnterTheTitle" xml:space="preserve">
+    <value>Enter the title of the image:</value>
+  </data>
+  <data name="EnterTheVideoURL" xml:space="preserve">
+    <value>Enter the video URL:</value>
+  </data>
+  <data name="TheStudentsOfEachGroupAre" xml:space="preserve">
+    <value>The students of each group:</value>
+  </data>
+  <data name="StudentsRegisteredSuccessfully" xml:space="preserve">
+    <value>Students registered successfully</value>
+  </data>
+</root>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="@RoadScholar.Helpers.CultureHelper.GetCurrentNeutralCulture()" dir="@(RoadScholar.Helpers.CultureHelper.IsRighToLeft() ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Resources.projectName </title>
+    @Styles.Render("~/Content/css" + (RoadScholar.Helpers.CultureHelper.IsRighToLeft() ? "-rtl" : ""))
+    @Scripts.Render("~/bundles/modernizr")
+    <meta name="description" content="The description of my page" />
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<img src="../../Content/iconLab.png" width="30" height="30" class="img-responsive" alt="">*@
+                @Html.ActionLink(Resources.projectName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(Resources.HomePage, "Index", "Home")</li>
+                    <li>@Html.ActionLink(Resources.AboutUs, "About", "Home")</li>
+                    <li>@Html.ActionLink(Resources.ContactUs, "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+            @{     var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+            }
+            @helper selected(string c, string culture)
+            {
+                if (c == culture)
+                {
+                        @:checked="checked"
+                    }
+                }
+            @using (Html.BeginForm("SetCulture", "Home"))
+            {
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        @Resources.ChooseLanguage
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><input name="culture" id="en" value="en" type="image" src="../../Content/en.png" width="30" height="30" alt="English"/></li>
+                        <li><input name="culture" id="he" value="he" type="image" src="../../Content/he.gif" width="30" height="30" alt="עברית" /></li>
+                        <li><input name="culture" id="ar" value="ar" type="image" src="../../Content/ar.jpg" width="30" height="30" alt="العربية" /></li>
+                    </ul>
+                </div>
+            }
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <div id="renderedBody" class="container body-content">
+        @RenderBody()
+    </div>
+    <div class="container body-content">
+        <br />
+        <hr />
+        <footer class="text-center">
+            <p>&copy; 2016 - @Resources.projectName</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap" + (RoadScholar.Helpers.CultureHelper.IsRighToLeft() ? "-rtl" : ""))
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        (function ($) {
+            $("input[type = 'image']").click(function () {
+                $(this).parents("form").submit(); // post form
+            });
+
+        })(jQuery);
+    </script>
+
+</body>
+
+</html>

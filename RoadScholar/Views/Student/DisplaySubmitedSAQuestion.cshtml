@@ -1,0 +1,15 @@
+﻿@model RoadScholar.Models.ShortAnswerQuestionResponse
+
+@{
+    ViewBag.Title = "Display Submited Short Answer Question";
+}
+@Html.AntiForgeryToken()
+
+<h2>Display Submited True/False Question</h2>
+
+<h2> Room - @Model.RoomId </h2>
+<h2> Phone - @Model.PhoneNumber </h2>
+<h2> My Answer - @Model.Answer </h2>
+<h2> qID - @Model.ActivityId </h2>
+
+<h2>תשובתך נקלטה בהצלחה במערכת, שא ברכה</h2>

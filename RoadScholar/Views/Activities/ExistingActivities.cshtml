@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RoadScholar.Models.Activity>
+
+@{
+    ViewBag.Title = Resources.ExistingActivities;
+}
+
+<h2>@Resources.ExistingActivities</h2>
+
+<div id="infoPlace"></div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityName)
+            </td>
+            <td>
+                @*@Html.ActionLink(Resources.SetAsActive, "Display", "Teacher", new { Id = item.id }, null)*@
+                <a href="@Url.Action("Display", "Teacher", new { Id = item.id }, null)"><span class="glyphicon glyphicon-play-circle"></span> @Resources.SetAsActive</a>
+            </td>
+            @if (item.Type != "Experiment")
+            {
+                <td>
+                    @*@Html.ActionLink(Resources.Delete, "DeleteActivity", new { Id = item.id }, null)*@
+                    <a href="@Url.Action("DeleteActivity", "Activities", new { Id = item.id }, null)"><span class="glyphicon glyphicon-trash"></span> @Resources.Delete</a>
+                </td>
+            }
+            else {
+                <td></td>
+            }
+        </tr>
+    }
+
+</table>
+
+<script>
+    var infoMessage = "@TempData["infoMessage"]";
+    if(infoMessage.length >0){
+        $("#infoPlace").html("<div class='alert alert-success'>".concat(infoMessage).concat("</div>"));
+     }
+</script>

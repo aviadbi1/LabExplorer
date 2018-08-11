@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = (RoadScholar.Helpers.CultureHelper.IsRighToLeft() ? "navbar-left" : "navbar-right") }))
+    {
+        @Html.AntiForgeryToken()
+        long e;
+
+        RoadScholar.BL.RoadScholarContext rsContext = new RoadScholar.BL.RoadScholarContext();
+        RoadScholar.BL.TeacherData teacherData = rsContext.getTeacher(User.Identity.Name);
+        e = teacherData.RoomId;
+
+        <ul class="nav navbar-nav">
+            <li><a href=@Url.Action("ShowCurrentActivity", "Teacher")>@Resources.RoomNumber: @e </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink(Resources.Hello + " " + teacherData.FirstName + " " + teacherData.LastName + " ! ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href=@Url.Action("Dashboard", "Teacher", new {Email = User.Identity.GetUserName() })>@Resources.Dashboard</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Logout</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav @(RoadScholar.Helpers.CultureHelper.IsRighToLeft() ? "navbar-left" : "navbar-right")">
+        <li>@Html.ActionLink(Resources.TeacherLogin, "TeacherLogin", "Account", routeValues: null, htmlAttributes: new { id = "teacherLoginLink" })</li>
+        <li>@Html.ActionLink(Resources.StudentLogin, "StudentLogin", "Account", routeValues: null, htmlAttributes: new { id = "studentLoginLink" })</li>
+    </ul>
+}

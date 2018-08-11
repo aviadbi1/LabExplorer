@@ -1,0 +1,164 @@
+﻿@model RoadScholar.Models.ShortAnswerQuestion
+@{
+    ViewBag.Title = Model.ActivityName;
+}
+<h2>@Model.ActivityName</h2>
+<hr />
+<div class="row">
+    <h3> @Model.question </h3>
+</div>
+
+<div id="explanation" style="visibility:hidden">
+    @{
+            <text>@Resources.TheCorrectAnswer &nbsp; @Model.correctAnswerString </text>
+    }
+    <br />
+    @Resources.TheExplanationIs &nbsp; @Model.explaination
+</div>
+
+@{
+    List<RoadScholar.Models.AnswerByPhone> studentsAnswers = ((List<RoadScholar.Models.AnswerByPhone>)Model.studentsAnswers);
+    RoadScholar.BL.RoadScholarContext rscontext = new RoadScholar.BL.RoadScholarContext();
+    <table id="answersTable" class="table" style="visibility:hidden">
+        <tr>
+            <th>
+                @Resources.PhoneNumber
+            </th>
+            <th>
+                @Resources.FirstName
+            </th>
+            <th>
+                @Resources.LastName
+            </th>
+            <th>
+                @Resources.Answer
+            </th>
+        </tr>
+        @for (int i = 0; i < studentsAnswers.Count; i++)
+        {
+            <tr>
+                <td>@studentsAnswers.ElementAt(i).Phone</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).FirstName</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).LastName</td>
+                <td>@studentsAnswers.ElementAt(i).Answer</td>
+            </tr>
+        }
+    </table>
+
+}
+
+<input id="Anonymous" type="checkbox" checked> @Resources.AnonymousAnswers
+
+<div class="row col-xs-12">
+    <button id="btnAnswers" onclick="showAnswers()" class="btn btn-lg btn-warning col-xs-3"> @Resources.ShowAnswers </button>
+    <button id="btnExplanation" onclick="showExplanation()" class="btn btn-lg btn-danger col-xs-3 col-xs-offset-2"> @Resources.ShowExplanation </button>
+    @Html.ActionLink(Resources.FinishAndSave, "DashboardAfterLog", "Teacher", new { Id = @Model.id }, new { @class = "btn btn-success btn-lg col-xs-2 col-xs-offset-2" })
+</div>
+
+
+
+<script>
+    function changeTable(jsonObj) {
+        var anonymous = document.getElementById("Anonymous").checked;
+        var studentAnswers = jsonObj["StudentAnswers"];
+        var table = document.getElementById("answersTable");
+        table.style.visibility = "visible";
+
+        var flagExist = false;
+        for (index in studentAnswers) {
+            phone = studentAnswers[index]["Phone"];
+            firstName = studentAnswers[index]["FirstName"];
+            lastName = studentAnswers[index]["LastName"];
+            answer = studentAnswers[index]["Answer"];
+
+            flagExist = false;
+
+            for (var i = 1; i < table.rows.length; i++) {
+                var phoneNumberInTable = table.rows[i].cells.item(0).innerHTML;
+                if (phone == phoneNumberInTable) {
+                    flagExist = true;
+                }
+            }
+
+            if (flagExist == false) {
+                var row = table.insertRow(-1);
+                var cellPhone = row.insertCell(0);
+                var cellFirstName = row.insertCell(1);
+                var cellLastName = row.insertCell(2);
+                var cellAnswer = row.insertCell(3);
+                cellPhone.innerHTML = phone;
+                cellFirstName.innerHTML = firstName;
+                cellLastName.innerHTML = lastName;
+                cellAnswer.innerHTML = answer;
+            }
+
+            var visibilityPreference = "visible";
+            if (anonymous) {
+                visibilityPreference = "collapse";
+            }
+
+            for (var i = 0; i < table.rows.length; i++) {
+                var row = table.rows[i].cells;
+                var cellPhone = row.item(0);
+                var cellFirstName = row.item(1);
+                var cellLastName = row.item(2);
+                cellPhone.style.visibility = visibilityPreference;
+                cellFirstName.style.visibility = visibilityPreference;
+                cellLastName.style.visibility = visibilityPreference;
+            }
+
+        }
+
+    }
+
+    function hideTable() {
+        var table = document.getElementById("answersTable");
+        table.style.visibility = "collapse";
+    }
+
+    var show = true;
+    var showExp = true;
+    var timer;
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+                changeTable(jsonObj[0]);
+            }
+        };
+        xhttp.open("GET", "/Teacher/GetUpdatedModelShortAnswerQuestion/?questionID=".concat(@Model.id), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+    function showAnswers() {
+
+        if (show) {
+            show = false;
+            document.getElementById("btnAnswers").innerHTML = "@Resources.HideAnswers";
+            sendRequest();
+        }
+        else {
+            show = true;
+            clearTimeout(timer);
+            document.getElementById("btnAnswers").innerHTML = "@Resources.ShowAnswers";
+            hideTable();
+        }
+    }
+
+    function showExplanation() {
+        if (showExp) {
+            showExp = false;
+            document.getElementById("btnExplanation").innerHTML = "@Resources.HideExplanation";
+            document.getElementById("explanation").style.visibility = "visible";
+        }
+        else {
+            showExp = true;
+            document.getElementById("btnExplanation").innerHTML = "@Resources.ShowExplanation";
+            document.getElementById("explanation").style.visibility = "hidden";
+        }
+    }
+
+</script>
+

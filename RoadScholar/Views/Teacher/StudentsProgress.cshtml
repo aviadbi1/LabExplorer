@@ -1,0 +1,297 @@
+﻿@model RoadScholar.Models.ActiveExperiment
+@{
+    ViewBag.Title = Resources.ExperimentGraph;
+}
+
+<h2 id="graphTitle">@Resources.CollaborativeGraph</h2>
+
+<div id="DivChartContainer">
+    <canvas id="canvas"></canvas>
+</div>
+
+@Scripts.Render("~/bundles/chart")
+
+<div class="row">
+    <button id="btnGraphDisplay" onclick="graphDisplay()" class="btn btn-lg btn-warning col-md-3"> @Resources.ShowCollaborativeGraph </button>
+    @Html.ActionLink(Resources.FinishAndSave, "DashboardAfterLog", "Teacher", new { Id = @Model.ActiveExpID }, new { @class = "btn btn-success btn-lg col-md-3 col-md-offset-2 " })
+</div>
+
+<div id="GroupsDetails">
+</div>
+
+<script>
+    var collaborativeButton = false;
+    sendRequest();
+    var ctxGraph = document.getElementById("canvas");
+    var groupList = [];
+    var colors = ["#FFFFFF","#800000","#FF8C00","#7CFC00","#38EBC4","#FF00FF","#E4FC08","#00FFFF","#C9C9C9","#E35B5B","#000000","#FF0084","#EBE6AB","#FCBF88","#7AE0FF"];
+    var labelsProgressGraph = [] // x axis
+    var labelsCollaborativeGraph = generateXAxisLabels(@TempData["NumOfMeasures"], @TempData["DifferenceBetweenMeasures"]); // x axis
+    var newProgressDataParsed = null;
+    var lastProgressDataParsed = null;
+    var lastProgressDataJSON = null;
+
+    for(var i = 1; i <= (@TempData["NumberOfExperimentSteps"]+1); i++){
+        labelsProgressGraph.push(i);
+    }
+
+    var progressData;
+    var collaborativeData = [];
+    var listSize = 1;
+
+    var minMeasrement = 0;
+    var maxMeasrement = 0;
+
+    function generateXAxisLabels(NumOfMeasures, DifferenceBetweenMeasures){
+        labels = [];
+        for(var i=0; i<NumOfMeasures; i++){
+            var time = "";
+            var minutes = Math.floor((DifferenceBetweenMeasures * i) / 60);
+            var seconds = (DifferenceBetweenMeasures * i) % 60;
+            if(Math.floor(seconds/10)    == 0){
+                seconds = "0" + seconds;
+            }
+            time = minutes + ":" + seconds;
+            labels.push(time);
+        }
+        return labels;
+    }
+
+    function graphDisplay() {
+
+        if (collaborativeButton) {
+            collaborativeButton = false;
+            document.getElementById("btnGraphDisplay").innerHTML = "@Resources.ShowCollaborativeGraph";
+            document.getElementById("graphTitle").innerHTML = "@Resources.ProgressGraph";
+            showProgressGraph();
+        }
+        else {
+            collaborativeButton = true;
+            document.getElementById("btnGraphDisplay").innerHTML = "@Resources.ShowProgressGraph";
+            document.getElementById("graphTitle").innerHTML = "@Resources.CollaborativeGraph";
+            showCollaborativeGraph();
+        }
+    }
+
+    function showCollaborativeGraph() {
+        var data = {
+            labels: labelsCollaborativeGraph,
+            datasets: collaborativeData
+        };
+
+        var myLineChart = new Chart(ctxGraph, {
+            type: 'line',
+            data: data,
+            options: {
+                legend: {
+                    display : true,
+                    labels : {
+                        boxWidth : 20,
+                        fontStyle : "bold",
+                        fontColor: "#FFFFFF"
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            fontColor: "#FFFFFF"
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            fontColor: "#FFFFFF",
+                            suggestedMin: minMeasrement - 1,
+                            suggestedMax: maxMeasrement + 1
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    function showProgressGraph() {
+
+        var data = {
+            labels: labelsProgressGraph, // x axis
+            datasets: progressData // y axis, progressData is the list of graphs
+        };
+
+        var myLineChart = new Chart(ctxGraph, {
+            type: 'line',
+            data: data,
+            options: {
+                legend: {
+                    display : true,
+                    labels : {
+                        boxWidth : 20,
+                        fontStyle : "bold",
+                        fontColor: "#FFFFFF"
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            fontColor: "#FFFFFF"
+                        }
+                    }],
+                    yAxes: [{
+                        display: false,
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: listSize+1
+                        }
+
+                    }]
+                }
+            }
+        });
+
+    }
+
+    function initializeProgressData(groupList) {
+        var listSize = groupList.length;
+        var currentGroup = 1;
+
+        var data = [];
+        for (var groupName in groupList) {
+            var currentData = {
+                fill: false,
+                data: [],
+                borderWidth: 100 / listSize,
+            };
+            currentData["label"] = groupName;
+            currentData["borderColor"] = colors[(currentGroup - 1) % colors.length];
+            currentData["data"].push(currentGroup);
+
+            data.push(currentData);
+            currentGroup++;
+        }
+        return data;
+    }
+
+    function changeCollaborativeData(groupsDictionary){
+        var listSize = Object.keys(groupsDictionary).length;
+        var currentGroup = 1;
+
+        var data = [];
+
+        // For the students names
+        namesOfStudentTable = $('<table></table>').attr({ id: "basicTable" });
+        var titleOfTable = $('<tr></tr>').attr({ class: [""].join(' ') }).appendTo(namesOfStudentTable);
+        $('<th></th>').html("<u>"+"@Resources.TheStudentsOfEachGroupAre"+"</u>").appendTo(titleOfTable);
+
+        for (var groupIndex=0; groupIndex<listSize; groupIndex++){
+            var currentData = {
+                fill: false,
+                data: [],
+                //borderWidth: 20,
+            };
+            currentData["label"] = groupsDictionary[groupIndex]["GroupName"];
+            currentData["borderColor"] = colors[(currentGroup - 1) % colors.length];
+
+            var measurementList = groupsDictionary[groupIndex]["GroupMeasurements"];
+            var measurementLength = Object.keys(measurementList).length;
+            var numOfMeasurements = Math.min(measurementLength, @TempData["NumOfMeasures"]);
+            for(var i = 0; i < numOfMeasurements; i++){
+                if(measurementList[i] < minMeasrement)
+                    minMeasrement = measurementList[i];
+                if(measurementList[i] > maxMeasrement)
+                    maxMeasrement = measurementList[i];
+                currentData["data"].push(measurementList[i]);
+            }
+
+            data.push(currentData);
+
+            // Add group details (names)
+            var studentsList = groupsDictionary[groupIndex]["GroupStudents"];
+            var studentListLength = Object.keys(studentsList).length;
+            var namesOfCurrentGroup = $('<tr></tr>').attr({ class: [""].join(' ') }).appendTo(namesOfStudentTable);
+
+            $('<td></td>').html("<label style = \"color: " + colors[(currentGroup - 1) % colors.length] + "\">"+studentsList+"</label>").appendTo(namesOfCurrentGroup);
+            
+            //for (var j = 0; j < studentListLength; j++) {
+            //    $('<td></td>').html(studentsList[j]).appendTo(namesOfCurrentGroup);
+            //}
+
+            currentGroup++;
+
+        }
+        document.getElementById("GroupsDetails").innerHTML = "";
+        namesOfStudentTable.appendTo("#GroupsDetails");
+
+        return data;
+    }
+
+    function changeProgressBars(groupsDictionary) {
+        // Update progress bars
+        var listSize = Object.keys(groupsDictionary).length;
+        var currentGroup = 1;
+
+        var data = [];
+        for (var groupIndex=0; groupIndex<listSize; groupIndex++){
+            var currentData = {
+                fill: false,
+                data: [],
+                borderWidth: 10,
+            };
+            currentData["label"] = groupsDictionary[groupIndex]["GroupName"];
+            currentData["borderColor"] = colors[currentGroup - 1];
+            for(var i = 0; i < groupsDictionary[groupIndex]["Progress"]; i++){
+                currentData["data"].push(currentGroup);
+            }
+
+            data.push(currentData);
+            currentGroup++;
+        }
+
+        return data;
+    }
+
+    var timer;
+
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+
+                // Check if the progress data changed
+                newProgressDataParsed = changeProgressBars(jsonObj);
+                newCollaborativeDataParsed = changeCollaborativeData(jsonObj);
+                if(lastProgressDataJSON != null){
+                    if(JSON.stringify(lastProgressDataJSON) == JSON.stringify(jsonObj) )
+                        return;
+                }
+
+                lastProgressDataJSON = jsonObj;
+                lastProgressDataParsed = newProgressDataParsed;
+
+                collaborativeData = newCollaborativeDataParsed;
+                progressData = newProgressDataParsed;
+                listSize = Object.keys(jsonObj).length;
+
+                $('#DivChartContainer').empty();
+                $('#DivChartContainer').append('<canvas id="canvas"></canvas>');
+                ctxGraph = document.getElementById("canvas").getContext("2d");
+
+                if (collaborativeButton) {
+                    document.getElementById("btnGraphDisplay").innerHTML = "@Resources.ShowProgressGraph";
+                    document.getElementById("graphTitle").innerHTML = "@Resources.CollaborativeGraph";
+                    showCollaborativeGraph();
+                }
+                else {
+                    document.getElementById("btnGraphDisplay").innerHTML = "@Resources.ShowCollaborativeGraph";
+                    document.getElementById("graphTitle").innerHTML = "@Resources.ProgressGraph";
+                    showProgressGraph();
+                }
+            }
+        };
+        xhttp.open("GET", "/Teacher/GetGroupsAsJSON/?ActiveExpID=".concat(@Model.ActiveExpID), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+</script>

@@ -1,0 +1,34 @@
+﻿@model RoadScholar.Models.ActiveExperiment
+
+@{
+    ViewBag.Title = Resources.GroupPreferences;
+}
+
+<h2>@Resources.GroupPreferences</h2>
+
+<hr />
+
+
+@using (Html.BeginForm("StudentsProgress", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.Hidden("ExpID", TempData["ExpID"]);
+    <div class="form-group">
+        @Html.LabelFor(m => m.NumberOfGroups, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.NumberOfGroups, new { @class = "form-control", @type = "number", @min = "1", @step = "1" })
+            @Html.ValidationMessageFor(m => m.NumberOfGroups, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MaxStudentPerGroup, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.MaxStudentPerGroup, new { @class = "form-control", @type = "number", @min = "1", @step = "1" })
+            @Html.ValidationMessageFor(m => m.MaxStudentPerGroup, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@Resources.Continue" class="btn btn-default" />
+        </div>
+    </div>
+}

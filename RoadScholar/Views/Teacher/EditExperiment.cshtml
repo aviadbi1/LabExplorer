@@ -1,0 +1,70 @@
+﻿@model RoadScholar.Models.Experiment
+@{
+    ViewBag.Title = Resources.CreateExperiment;
+}
+<h2>@Resources.CreateExperiment</h2>
+<hr />
+
+@Html.AntiForgeryToken()
+
+@Html.ValidationSummary("", new { @class = "text-danger" })
+
+<h3>@Resources.Title:</h3> @Model.ActivityName
+<h3>@Resources.ExperimentQuestion: </h3> @Model.ExperimentQuestion
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.activities)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityName)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>@Resources.PleaseChooseTheStepYouWantToAdd</p>
+<input type="radio" name="activity" value="CreateInstruction">@Resources.Instruction<br>
+<input type="radio" name="activity" value="CreateVideo">@Resources.Video<br>
+<input type="radio" name="activity" value="CreateImage">@Resources.Image<br>
+<input type="radio" name="activity" value="CreateTrueFalseQuestionExp">@Resources.TrueFalseQuestion<br>
+<input type="radio" name="activity" value="CreateAmericanQuestionExp">@Resources.AmericanQuestion<br>
+<input type="radio" name="activity" value="CreateShortAnswerQuestionExp">@Resources.ShortAnswerQuestion<br>
+<input type="radio" name="activity" value="CreateMeasurement">@Resources.MeasurementsSet<br>
+
+
+<!-- Button -->
+<div class="row col-xs-12 form-group">
+        <button id="addStep" type="button" onclick="myFunction()" name="addStep" class="btn btn-lg btn-primary col-xs-4 col-xs-offset-2">@Resources.AddStep</button>
+        <a href="/Teacher/SaveExperiment?ExpId=@Model.id" class="btn btn-lg btn-primary col-xs-4 col-xs-offset-2">@Resources.Finish</a>
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<script>
+    function myFunction() {
+        var activities = document.getElementsByName("activity");
+
+        for (var i = 0; i < activities.length; i++) {
+            if (activities[i].checked) {
+                window.location = "/Teacher/".concat(activities[i].value).concat("?ExpID=").concat(@Model.id);
+            }
+        }
+
+    }
+</script>

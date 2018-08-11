@@ -1,0 +1,27 @@
+﻿@model RoadScholar.Models.IndexViewModel
+@{
+    ViewBag.Title = Resources.ManageAccount;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Resources.Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+    </dl>
+</div>

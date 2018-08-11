@@ -1,0 +1,133 @@
+﻿@model RoadScholar.Models.ActiveExperiment
+
+@{
+    ViewBag.Title = Resources.OpenNewGroup;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="infoPlace"></div>
+
+@using (Html.BeginForm("SaveNewGroup", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <table class="table table-bordered table-hover" id="tab_logic">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                #
+                            </th>
+                            <th class="text-center">
+                                @Resources.PhoneNumber
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable">
+                        <tr id='addr0'>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                <input type="text" name='phoneNumber0' placeholder='05xxxxxxxx' class="form-control" />
+                            </td>
+                        </tr>
+                        <tr id='addr1'></tr>
+                    </tbody>
+                </table>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <a id="createGroupButton" class="btn btn-default">@Resources.CreateGroup</a>
+
+            </div>
+        </div>
+        <a id="add_row" class="btn btn-default pull-left">@Resources.AddRow</a><a id='delete_row' class="pull-right btn btn-default">@Resources.DeleteRow</a>
+    </div>
+}
+
+
+
+
+<script>
+    var i=1;
+    function showErrorMessage(message) {
+        alert(message);
+    }
+
+    function validatePhoneNumber(phone) {
+        var re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+        return re.test(phone);
+    }
+
+    function createGroup() {
+        var totalNumberOfStudents = $("#studentsTable tr").length - 1;
+        var allStudentPhones = [];
+
+        allStudentPhones.push("@TempData["StudentPhone"]");
+
+        for (studentIndex = 0; studentIndex < i; studentIndex++) {
+            var studentPhone = $("input[name=phoneNumber" + studentIndex + "]").val();
+            if (studentPhone != "") {
+                allStudentPhones.push(studentPhone);
+            }
+        }
+        var params = {allStudentPhones: allStudentPhones, activeExpId: @TempData["ActiveExpID"], roomId: @TempData["StudentRoom"]};
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            type: "POST",
+            url: '@Url.Action("SaveNewGroup", "Student")',
+            data: JSON.stringify(params),
+            dataType: "json",
+            success: function (e) {
+                console.log("uspjeh1");
+            },
+            error: function (e) {
+                if (e.success)
+                {
+                    $("#renderedBody").html(e.responseText);
+                }
+            }
+        });
+
+    }
+
+
+    $(document).ready(function () {
+
+        $("#add_row").click(function () {
+            if (i > @TempData["MaxStudentsPerGroup"] - 2)
+                return;
+            $('#addr' + i).html("<td>" + (i + 1) + "</td><td><input name='phoneNumber" + i + "' type='text' placeholder='05xxxxxxxx' class='form-control input-md'  /> </td>");
+
+            $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+            i++;
+        });
+        $("#delete_row").click(function () {
+            if (i > 1) {
+                $("#addr" + (i - 1)).html('');
+                i--;
+            }
+        });
+
+        $("#createGroupButton").click(function () {
+            createGroup();
+        });
+
+    });
+
+    var errorMessage = "@TempData["errorMessage"]";
+    if(errorMessage.length >0){
+        $("#infoPlace").html("<div class='alert alert-danger'>".concat(errorMessage).concat("</div>"));
+    }
+
+    // Disable 'enter' key from keyboard
+    $(document).keypress(
+    function(event){
+        if (event.which == '13') {
+            event.preventDefault();
+        }
+    });
+
+</script>

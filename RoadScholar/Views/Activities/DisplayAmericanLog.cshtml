@@ -1,0 +1,111 @@
+﻿@model RoadScholar.Models.AmericanLog
+@{
+    ViewBag.Title = Resources.AmericanHistory;
+}
+
+<h2>@Resources.AmericanHistory</h2>
+
+<hr />
+<div class="row">
+    <h3> @Model.question </h3>
+</div>
+
+@{
+    int firstPrecentage = 0;
+    int secondPrecentage = 0;
+    int thirdPrecentage = 0;
+    int fourthPrecentage = 0;
+    int sumCounters = (@Model.counterFirst + @Model.counterSecond + @Model.counterThird + @Model.counterFourth);
+    if (sumCounters != 0)
+    {
+        double temp = (@Model.counterFirst + 0.0) / sumCounters;
+        firstPrecentage = (int)(temp * 100);
+        temp = (@Model.counterSecond + 0.0) / sumCounters;
+        secondPrecentage = (int)(temp * 100);
+        temp = (@Model.counterThird + 0.0) / sumCounters;
+        thirdPrecentage = (int)(temp * 100);
+        temp = (@Model.counterFourth + 0.0) / sumCounters;
+        fourthPrecentage = (int)(temp * 100);
+    }
+
+}
+
+@Model.firstAnswer
+<div class="row progress">
+    <div id="progressBar1" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:@firstPrecentage%">
+        @firstPrecentage %
+    </div>
+</div>
+
+@Model.secondAnswer
+<div class="row progress">
+    <div id="progressBar2" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:@secondPrecentage%">
+        @secondPrecentage %
+    </div>
+</div>
+
+@Model.thirdAnswer
+<div class="row progress">
+    <div id="progressBar3" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:@thirdPrecentage%">
+        @thirdPrecentage %
+    </div>
+</div>
+
+@Model.fourthAnswer
+<div class="row progress">
+    <div id="progressBar4" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:@fourthPrecentage%">
+        @fourthPrecentage %
+    </div>
+</div>
+
+@{
+    List<RoadScholar.Models.AnswerByPhone> studentsAnswers = ((List<RoadScholar.Models.AnswerByPhone>)Model.studentsAnswers);
+    RoadScholar.BL.RoadScholarContext rscontext = new RoadScholar.BL.RoadScholarContext();
+    <table id="answersTable" class="table">
+        <tr>
+            <th>
+                @Resources.PhoneNumber
+            </th>
+            <th>
+                @Resources.FirstName
+            </th>
+            <th>
+                @Resources.LastName
+            </th>
+            <th>
+                @Resources.Answer
+            </th>
+        </tr>
+        @for (int i = 0; i < studentsAnswers.Count; i++)
+        {
+            <tr>
+                <td>@studentsAnswers.ElementAt(i).Phone</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).FirstName</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).LastName</td>
+                @{
+                    if (@studentsAnswers.ElementAt(i).Answer == "Answer 1")
+                    {
+                        <td>@Resources.FirstAnswer</td>
+                    }
+                    else if (@studentsAnswers.ElementAt(i).Answer == "Answer 2")
+                    {
+                        <td>@Resources.SecondAnswer</td>
+                    }
+                    else if (@studentsAnswers.ElementAt(i).Answer == "Answer 3")
+                    {
+                        <td>@Resources.ThirdAnswer</td>
+                    }
+                    else
+                    {
+                        <td>@Resources.FourthAnswer</td>
+                    }
+                }
+            </tr>
+                    }
+    </table>
+
+}

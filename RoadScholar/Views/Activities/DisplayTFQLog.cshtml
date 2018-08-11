@@ -1,0 +1,76 @@
+﻿@model RoadScholar.Models.TFQLog
+@{
+    ViewBag.Title = Resources.TFQHistory;
+}
+
+<h2>@Resources.TFQHistory</h2>
+
+<hr />
+<div class="row">
+    <h3> @Model.question </h3>
+</div>
+@{
+    int falsePrecentage = 0;
+    int truePrecentage = 0;
+    int sumCounters = (@Model.counterTrue + @Model.counterFalse);
+    if (sumCounters != 0)
+    {
+        double temp = (@Model.counterFalse + 0.0) / sumCounters;
+        falsePrecentage = (int)(temp * 100);
+        truePrecentage = 100 - falsePrecentage;
+    }
+}
+@Resources.True
+<div class="row progress">
+    <div class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="@truePrecentage" aria-valuemin="0" aria-valuemax="100" style="width:@truePrecentage%">
+        @truePrecentage %
+    </div>
+</div>
+@Resources.False
+<div class="row progress">
+    <div class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="@falsePrecentage" aria-valuemin="0" aria-valuemax="100" style="width:@falsePrecentage%">
+        @falsePrecentage %
+    </div>
+</div>
+
+@{
+    List<RoadScholar.Models.AnswerByPhone> studentsAnswers = ((List<RoadScholar.Models.AnswerByPhone>)Model.studentsAnswers);
+    RoadScholar.BL.RoadScholarContext rscontext = new RoadScholar.BL.RoadScholarContext();
+    <table id="answersTable" class="table">
+        <tr>
+            <th>
+                @Resources.PhoneNumber
+            </th>
+            <th>
+                @Resources.FirstName
+            </th>
+            <th>
+                @Resources.LastName
+            </th>
+            <th>
+                @Resources.Answer
+            </th>
+        </tr>
+        @for (int i = 0; i < studentsAnswers.Count; i++)
+        {
+            <tr>
+                <td>@studentsAnswers.ElementAt(i).Phone</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).FirstName</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).LastName</td>
+                @{
+                    if (@studentsAnswers.ElementAt(i).Answer == "Yes")
+                    {
+                        <td>@Resources.True</td>
+                    }
+                    else
+                    {
+                        <td>@Resources.False</td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+
+}

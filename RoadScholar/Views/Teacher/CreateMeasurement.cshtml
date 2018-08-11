@@ -1,0 +1,61 @@
+﻿@model RoadScholar.Models.Measurement
+@{
+    ViewBag.Title = Resources.CreateMeasurementSet;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("EditMeasurement", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ExpID", TempData["ExpID"]);
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    @Html.Hidden("ActivityName", @Resources.MeasurementsSet)
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="NumOfMeasuresTextBox">@Resources.PleaseChooseNumberOfMeasurementsInSet</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.NumOfMeasures, new { @class = "form-control", @type = "number", @min = "0", @step = "1" })
+        </div>
+    </div>
+
+     <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="DifferenceBetweenMeasuresTextBox">@Resources.PleaseChooseTheTimeBetweenEachTwoMeasurements</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.DifferenceBetweenMeasures, new { @class = "form-control", @type = "number", @min = "0", @step = "1" })
+        </div>
+    </div>
+
+         <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="NumOfParametersToMeasureTextBox">@Resources.PleaseChooseNumberOfParametersToMeasure</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.NumOfParametersToMeasure, new { @class = "form-control", @type = "number", @min = "0", @step = "1" })
+        </div>
+    </div>
+
+         <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="WindowOpenTimeSecondsTextBox">@Resources.PleaseChooseTimeToEnterMeasureInSeconds</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.WindowOpenTimeSeconds, new { @class = "form-control", @type = "number", @min = "0", @step = "1" })
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="submitMeasurementsSetButton"></label>
+        <div class="col-md-4">
+            <button id="submitMeasurementsSetButton" name="submitMeasurementsSetButton" class="btn btn-primary">@Resources.Continue</button>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

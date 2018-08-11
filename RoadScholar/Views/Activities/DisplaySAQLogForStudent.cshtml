@@ -1,0 +1,25 @@
+﻿@model RoadScholar.Models.ShortAnswerQuestion
+@{
+    ViewBag.Title = Resources.HistoryForTheActivity + " \"" + Model.ActivityName + "\", " + TempData["StudentName"];
+}
+
+<h2>@ViewBag.Title</h2>
+
+<u>@Resources.TheQuestion</u>
+<br>
+@Model.question
+<br>
+<br>
+<u>@Resources.TheCorrectAnswer</u>
+<br>
+@Model.correctAnswerString
+<br>
+<br>
+<u>@Resources.TheExplanationIs</u>
+<br>
+@Model.explaination
+<br>
+<br>
+<u>@Resources.StudentAnswer</u>
+<br>
+@TempData["StudentAnswer"]

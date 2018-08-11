@@ -1,0 +1,50 @@
+﻿@model IEnumerable<RoadScholar.Models.ActivityLog>
+
+@{
+    ViewBag.Title = Resources.HistoryByActivity;
+}
+
+<h2>@Resources.HistoryByActivity</h2>
+
+<div id="infoPlace">
+    <div class="alert alert-warning"> @Resources.HistoryDeleteAlert </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.ActionLink(Resources.ShowLog, "DisplayLog", "Activities", new { Id = item.id }, null)
+            </td>
+            <td>
+                @*@Html.ActionLink(Resources.Delete, "DeleteActivityHistory", "Activities", new { Id = item.id }, null)*@
+                <a href="@Url.Action("DeleteActivityHistory", "Activities", new { Id = item.id }, null)"><span class="glyphicon glyphicon-trash"></span> @Resources.Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<script>
+    var infoMessage = "@TempData["infoMessage"]";
+    if(infoMessage.length >0){
+        $("#infoPlace").html("<div class='alert alert-success'>".concat(infoMessage).concat("</div>"));
+     }
+</script>

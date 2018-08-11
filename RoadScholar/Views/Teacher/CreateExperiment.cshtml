@@ -1,0 +1,51 @@
+﻿@model RoadScholar.Models.Experiment
+
+@{
+    ViewBag.Title = Resources.CreateExperiment;
+}
+
+<h2>@Resources.CreateExperiment</h2>
+
+<hr />
+
+@using (Html.BeginForm("EditExperiment", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="nameTextBox">@Resources.Title</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.ActivityName, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="nameTextBox">@Resources.ExperimentQuestion</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.ExperimentQuestion, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="Continue"></label>
+        <div class="col-md-4">
+            <button id="Continue" name="Continue" class="btn btn-primary">@Resources.Continue</button>
+        </div>
+    </div>
+
+
+  
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

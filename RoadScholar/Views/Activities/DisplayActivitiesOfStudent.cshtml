@@ -1,0 +1,28 @@
+﻿@model IEnumerable<RoadScholar.Models.Activity>
+
+@{
+    ViewBag.Title = Resources.ActivitiesOfStudent;
+}
+
+<h2>@Resources.ActivitiesOfStudent</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityName)
+            </td>
+            <td>
+                @Html.ActionLink(Resources.ShowActivityLog, "DisplayLogByActivityIDAndStudentPhone", "Activities", new { ActivityID = item.id, StudentPhone = TempData["PhoneNumber"] }, null)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RoadScholar.Models.Student>
+@{
+    ViewBag.Title = Resources.HistoryByStudent;
+}
+
+<h2>@Resources.HistoryByStudent</h2>
+
+<div id="infoPlace"></div>
+
+<table class="table">
+  
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        RoadScholar.BL.RoadScholarContext rscontext = new RoadScholar.BL.RoadScholarContext();
+        if (rscontext.studentHasActivities(item.PhoneNumber, Convert.ToInt64(TempData["RoomID"]))) { 
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.ActionLink(Resources.ShowActivities, "DisplayActivitiesOfStudent", "Activities", new { phoneNumber = item.PhoneNumber, RoomID = TempData["RoomID"] }, null)
+                </td>
+                <td>
+                    <a href="@Url.Action("DeleteAllActivitiesOfStudent", "Activities", new { phoneNumber = item.PhoneNumber, RoomID = TempData["RoomID"] }, null)" ><span class="glyphicon glyphicon-trash"></span> @Resources.Delete</a>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+<script>
+    var infoMessage = "@TempData["infoMessage"]";
+    if(infoMessage.length >0){
+        $("#infoPlace").html("<div class='alert alert-success'>".concat(infoMessage).concat("</div>"));
+     }
+</script>

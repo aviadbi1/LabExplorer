@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutUs" xml:space="preserve">
+    <value>קצת עלינו</value>
+  </data>
+  <data name="ChooseLanguage" xml:space="preserve">
+    <value>בחר שפה</value>
+  </data>
+  <data name="ClickHereToLogIn" xml:space="preserve">
+    <value>לחץ כאן על מנת להתחבר</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>אשר סיסמא</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>צור משתמש חדש.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>דוא"ל</value>
+  </data>
+  <data name="emailConfirmation" xml:space="preserve">
+    <value>תודה רבה על שאישרת את המייל שלך. אנא</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>שם פרטי</value>
+  </data>
+  <data name="HistoryByActivity" xml:space="preserve">
+    <value>היסטוריה לפי פעילות</value>
+  </data>
+  <data name="HistoryByStudent" xml:space="preserve">
+    <value>היסטוריה לפי תלמיד</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>דף הבית</value>
+  </data>
+  <data name="InvalidLogin" xml:space="preserve">
+    <value>אימייל/סיסמא לא נכונים</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>שם משפחה</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>התחבר</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>סיסמא</value>
+  </data>
+  <data name="PasswordMustBeAtLeast6" xml:space="preserve">
+    <value>הסיסמא צריכה להכיל לפחות 6 תווים</value>
+  </data>
+  <data name="PasswordsDontMatch" xml:space="preserve">
+    <value>הסיסמאות אינן תואמות</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>פלאפון</value>
+  </data>
+  <data name="projectName" xml:space="preserve">
+    <value>חוקר דרך</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>הירשם</value>
+  </data>
+  <data name="RegisterAsNewUser" xml:space="preserve">
+    <value>הירשם כמשתמש חדש</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>זכור אותי</value>
+  </data>
+  <data name="RoomNumber" xml:space="preserve">
+    <value>מספר חדר</value>
+  </data>
+  <data name="ShowActivities" xml:space="preserve">
+    <value>הצג פעילויות בהן השתתף</value>
+  </data>
+  <data name="ShowLog" xml:space="preserve">
+    <value>הצג היסטוריה</value>
+  </data>
+  <data name="StudentLogin" xml:space="preserve">
+    <value>התחברות תלמיד</value>
+  </data>
+  <data name="TeacherLogin" xml:space="preserve">
+    <value>התחברות מורה</value>
+  </data>
+  <data name="TeacherRegister" xml:space="preserve">
+    <value>רישום מורה</value>
+  </data>
+  <data name="useAnotherServiceToLogIn" xml:space="preserve">
+    <value>השתמש בשירות אחר על מנת להתחבר</value>
+  </data>
+  <data name="ActivitiesOfStudent" xml:space="preserve">
+    <value>פעילויות התלמיד</value>
+  </data>
+  <data name="ShowActivityLog" xml:space="preserve">
+    <value>הצג היסטוריית הפעילות</value>
+  </data>
+  <data name="ActivityName" xml:space="preserve">
+    <value>שם הפעילות</value>
+  </data>
+  <data name="HistoryForTheActivity" xml:space="preserve">
+    <value>היסטוריה עבור הפעילות</value>
+  </data>
+  <data name="StudentAnswer" xml:space="preserve">
+    <value>תשובת התלמיד הייתה:</value>
+  </data>
+  <data name="ThePossibleAnswers" xml:space="preserve">
+    <value>התשובות האפשריות היו:</value>
+  </data>
+  <data name="TheQuestion" xml:space="preserve">
+    <value>השאלה:</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>לא נכון</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>נכון</value>
+  </data>
+  <data name="TheCorrectAnswer" xml:space="preserve">
+    <value>התשובה הנכונה:</value>
+  </data>
+  <data name="Explaination" xml:space="preserve">
+    <value>הסבר לתשובה</value>
+  </data>
+  <data name="CreateActivity" xml:space="preserve">
+    <value>צור פעילות</value>
+  </data>
+  <data name="ExistingActivities" xml:space="preserve">
+    <value>פעילויות קיימות</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>היסטוריה</value>
+  </data>
+  <data name="RegisterStudent" xml:space="preserve">
+    <value>רשום תלמידים</value>
+  </data>
+  <data name="GroupCreation" xml:space="preserve">
+    <value>יצירת קבוצה</value>
+  </data>
+  <data name="AmericanQuestion" xml:space="preserve">
+    <value>שאלה אמריקאית</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>בחר קובץ</value>
+  </data>
+  <data name="waitScreen" xml:space="preserve">
+    <value>מסך המתנה</value>
+  </data>
+  <data name="UploadExplanation" xml:space="preserve">
+    <value>ביכולתך לרשום מספר תלמידים על ידי קובץ CSV</value>
+  </data>
+  <data name="AddRow" xml:space="preserve">
+    <value>הוסף שורה</value>
+  </data>
+  <data name="DeleteRow" xml:space="preserve">
+    <value>מחק שורה</value>
+  </data>
+  <data name="OpenNewGroup" xml:space="preserve">
+    <value>פתח קבוצה חדשה</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="ShowNoAvailableGroups" xml:space="preserve">
+    <value>אין קבוצות זמינות</value>
+  </data>
+  <data name="CreateGroup" xml:space="preserve">
+    <value>צור קבוצה</value>
+  </data>
+  <data name="CollaborativeGraph" xml:space="preserve">
+    <value>גרף שיתופי</value>
+  </data>
+  <data name="ExperimentGraph" xml:space="preserve">
+    <value>גרף ניסוי</value>
+  </data>
+  <data name="ProgressGraph" xml:space="preserve">
+    <value>גרף התקדמות</value>
+  </data>
+  <data name="StudentErrorMsg1" xml:space="preserve">
+    <value>לפחות אחד מתלמידי הקבוצה אינו רשום למערכת</value>
+  </data>
+  <data name="StudentErrorMsg2" xml:space="preserve">
+    <value>לפחות אחד מתלמידי הקבוצה כבר רשום לקבוצה קיימת</value>
+  </data>
+  <data name="CreateMeasurementSet" xml:space="preserve">
+    <value>צור סט מדידות</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>תמונה</value>
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>הוראה</value>
+  </data>
+  <data name="MeasurementsSet" xml:space="preserve">
+    <value>סט מדידות</value>
+  </data>
+  <data name="PleaseChooseTheStepYouWantToAdd" xml:space="preserve">
+    <value>בחר/י את השלב הבא בניסוי</value>
+  </data>
+  <data name="ShortAnswerQuestion" xml:space="preserve">
+    <value>שאלה פתוחה</value>
+  </data>
+  <data name="TrueFalseQuestion" xml:space="preserve">
+    <value>שאלת נכון/לא נכון</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>סרטון</value>
+  </data>
+  <data name="PleaseChooseNumberOfMeasurementsInSet" xml:space="preserve">
+    <value>בחר/י את מספר המדידות בסט:</value>
+  </data>
+  <data name="PleaseChooseTheTimeBetweenEachTwoMeasurements" xml:space="preserve">
+    <value>בחר/י את הזמן (בשניות) בין מדידה למדידה:</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>הגש</value>
+  </data>
+  <data name="AddMeasuresToSet" xml:space="preserve">
+    <value>הוספת מדידות לסט המדידות</value>
+  </data>
+  <data name="PleaseChooseNumberOfParametersToMeasure" xml:space="preserve">
+    <value>בחר/י את מספר הפרמטרים למדידה:</value>
+  </data>
+  <data name="AddMeasure" xml:space="preserve">
+    <value>הוסף מדידה</value>
+  </data>
+  <data name="AddParameterToMeasure" xml:space="preserve">
+    <value>הוסף פרמטר למדידה</value>
+  </data>
+  <data name="DeleteMeasure" xml:space="preserve">
+    <value>מחק מדידה</value>
+  </data>
+  <data name="DeleteParameterToMeasure" xml:space="preserve">
+    <value>מחק פרמטר למדידה</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>לוח בקרה</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>התנתק</value>
+  </data>
+  <data name="CreateAmericanQuestion" xml:space="preserve">
+    <value>יצירת שאלה אמריקאית</value>
+  </data>
+  <data name="CreateShortAnswerQuestion" xml:space="preserve">
+    <value>יצירת שאלה פתוחה</value>
+  </data>
+  <data name="CreateTrueFalseQuestion" xml:space="preserve">
+    <value>יצירת שאלת נכון/לא נכון</value>
+  </data>
+  <data name="EnterTheCorrectAnswer" xml:space="preserve">
+    <value>הכנס תשובה נכונה</value>
+  </data>
+  <data name="EnterTheNameOfTheActivity" xml:space="preserve">
+    <value>הכנס שם פעילות</value>
+  </data>
+  <data name="EnterYourQuestion" xml:space="preserve">
+    <value>הכנס שאלה</value>
+  </data>
+  <data name="Experiment" xml:space="preserve">
+    <value>ניסוי</value>
+  </data>
+  <data name="FirstAnswer" xml:space="preserve">
+    <value>תשובה ראשונה</value>
+  </data>
+  <data name="FourthAnswer" xml:space="preserve">
+    <value>תשובה רביעית</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>שלום</value>
+  </data>
+  <data name="SecondAnswer" xml:space="preserve">
+    <value>תשובה שנייה</value>
+  </data>
+  <data name="ThirdAnswer" xml:space="preserve">
+    <value>תשובה שלישית</value>
+  </data>
+  <data name="AddStep" xml:space="preserve">
+    <value>הוסף שלב</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>תשובה</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="CreateExperiment" xml:space="preserve">
+    <value>יצירת ניסוי</value>
+  </data>
+  <data name="CreateQuestion" xml:space="preserve">
+    <value>צור שאלה</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="ExperimentQuestion" xml:space="preserve">
+    <value>שאלת הניסוי</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>סיים</value>
+  </data>
+  <data name="GroupPreferences" xml:space="preserve">
+    <value>הגדרות קבוצה</value>
+  </data>
+  <data name="HideAnswers" xml:space="preserve">
+    <value>הסתר תשובות</value>
+  </data>
+  <data name="MaxStudentsPerGroup" xml:space="preserve">
+    <value>מספר מקסימלי של תלמידים בקבוצה</value>
+  </data>
+  <data name="NumberOfGroups" xml:space="preserve">
+    <value>מספר הקבוצות</value>
+  </data>
+  <data name="SetAsActive" xml:space="preserve">
+    <value>הפעל פעילות</value>
+  </data>
+  <data name="ShowAnswers" xml:space="preserve">
+    <value>הצג תשובות</value>
+  </data>
+  <data name="ShowCollaborativeGraph" xml:space="preserve">
+    <value>הצג גרף שיתופי</value>
+  </data>
+  <data name="ShowProgressGraph" xml:space="preserve">
+    <value>הצג גרף התקדמות</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>כותרת הניסוי</value>
+  </data>
+  <data name="FinishAndSave" xml:space="preserve">
+    <value>סיים ושמור</value>
+  </data>
+  <data name="AnonymousAnswers" xml:space="preserve">
+    <value>תשובות אנונימיות?</value>
+  </data>
+  <data name="AmericanHistory" xml:space="preserve">
+    <value>היסטוריית שאלה אמריקאית</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>תאריך</value>
+  </data>
+  <data name="HistoryDeleteAlert" xml:space="preserve">
+    <value>מחיקת היסטוריית פעילות תגרור מחיקת היסטוריית התלמיד מאותה הפעילות</value>
+  </data>
+  <data name="ShortHistory" xml:space="preserve">
+    <value>היסטוריית שאלה עם תשובה קצרה</value>
+  </data>
+  <data name="TFQHistory" xml:space="preserve">
+    <value>היסטוריית שאלת נכון\לא נכון</value>
+  </data>
+  <data name="YourAnswer" xml:space="preserve">
+    <value>התשובה שלך</value>
+  </data>
+  <data name="AnswerSubmitted" xml:space="preserve">
+    <value>כל הכבוד! הלוואי כל התלמידים שלי היו כמוך!</value>
+  </data>
+  <data name="PleaseChooseTimeToEnterMeasureInSeconds" xml:space="preserve">
+    <value>בחר זמן להכנסת מדידה (שניות):</value>
+  </data>
+  <data name="ImageNotFound" xml:space="preserve">
+    <value>התמונה אינה נמצאה</value>
+  </data>
+  <data name="VideoNotFound" xml:space="preserve">
+    <value>הסרטון אינו נמצא</value>
+  </data>
+  <data name="AddInstructionsForMeasures" xml:space="preserve">
+    <value>הכנס/י הוראות מדידה עבור כל פרמטר:</value>
+  </data>
+  <data name="AllOfTheStudentsGotTheirPermissions" xml:space="preserve">
+    <value>כל התלמידים שהזנת קיבלו הרשאות לכיתתך</value>
+  </data>
+  <data name="AllTheOtherStudentsWereRegistered" xml:space="preserve">
+    <value>כל שאר התלמידים נרשמו.</value>
+  </data>
+  <data name="LoginInvalid" xml:space="preserve">
+    <value>מספר החדר או הטלפון אינם תקינים</value>
+  </data>
+  <data name="TheActivitiesHistoryHaveBeenDeletedSuccessfullyForStudent" xml:space="preserve">
+    <value>היסטוריית הפעילות של התלמיד הבא נמחקה בהצלחה: </value>
+  </data>
+  <data name="TheActivityHaveBeenDeletedSuccessfully" xml:space="preserve">
+    <value>הפעילות הבאה נמחקה בהצלחה: </value>
+  </data>
+  <data name="TheActivityHistoryHaveBeenDeletedSuccessfullyForActivity" xml:space="preserve">
+    <value>היסטוריית הפעילות הבאה נמחקה: </value>
+  </data>
+  <data name="ThoseStudentsAreAlreadyRegistered" xml:space="preserve">
+    <value>התלמידים הבאים רשומים כבר למערכת: </value>
+  </data>
+  <data name="ShowExplanation" xml:space="preserve">
+    <value>הצג הסבר</value>
+  </data>
+  <data name="HideExplanation" xml:space="preserve">
+    <value>הסתר הסבר</value>
+  </data>
+  <data name="TheExplanationIs" xml:space="preserve">
+    <value>הסבר:</value>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>ניהול חשבון</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>הסיסמה שונתה בהצלחה</value>
+  </data>
+  <data name="YouAreAlreadyInAGroup" xml:space="preserve">
+    <value>אינך יכול לפתוח קבוצה חדשה, כיוון שהינך רשום לקבוצה קיימת</value>
+  </data>
+  <data name="ExperimentHistory" xml:space="preserve">
+    <value>היסטוריית ניסוי</value>
+  </data>
+  <data name="ThereIsNoActivityActivated" xml:space="preserve">
+    <value>לא קיימת פעילות המופעלת כרגע, אנא צור פעילות חדשה או בחר פעילות קיימת</value>
+  </data>
+  <data name="AnswerStringRequired" xml:space="preserve">
+    <value>חובה למלא את כל 4 התשובות</value>
+  </data>
+  <data name="correctAnswerStringRequired" xml:space="preserve">
+    <value>חובה למלא תשובה נכונה</value>
+  </data>
+  <data name="questionStringRequired" xml:space="preserve">
+    <value>חובה למלא שאלה</value>
+  </data>
+  <data name="Accompanying" xml:space="preserve">
+    <value>ליווי תהליך חקר בכיתה ובמעבדה</value>
+  </data>
+  <data name="ActivityNameRequired" xml:space="preserve">
+    <value>חובה למלא שם פעילות</value>
+  </data>
+  <data name="AnswerRequired" xml:space="preserve">
+    <value>חובה למלא תשובה</value>
+  </data>
+  <data name="CommandRequired" xml:space="preserve">
+    <value>חובה למלא הוראה</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>חובה למלא אימייל</value>
+  </data>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>חובה למלא שם פרטי</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>חובה למלא שם משפחה</value>
+  </data>
+  <data name="MaxStudentPerGroupRequired" xml:space="preserve">
+    <value>חובה למלא מספר מקסימלי של תלמידים לקבוצה</value>
+  </data>
+  <data name="NumberOfGroupsRequired" xml:space="preserve">
+    <value>חובה למלא מספר קבוצות</value>
+  </data>
+  <data name="PhoneNumberRequired" xml:space="preserve">
+    <value>חובה למלא מספר טלפון</value>
+  </data>
+  <data name="TitleRequired" xml:space="preserve">
+    <value>חובה למלא כותרת</value>
+  </data>
+  <data name="URLRequired" xml:space="preserve">
+    <value>חובה למלא URL</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>חובה למלא סיסמה</value>
+  </data>
+  <data name="EnterTheImageURL" xml:space="preserve">
+    <value>הכנס/י את כתובת התמונה:</value>
+  </data>
+  <data name="EnterTheInstruction" xml:space="preserve">
+    <value>הכנס/י את ההוראה:</value>
+  </data>
+  <data name="EnterTheNameOfTheImage" xml:space="preserve">
+    <value>הכנס/י את שם התמונה:</value>
+  </data>
+  <data name="EnterTheNameOfTheInstruction" xml:space="preserve">
+    <value>הכנס/י את שם ההוראה:</value>
+  </data>
+  <data name="EnterTheNameOfTheVideo" xml:space="preserve">
+    <value>הכנס/י את שם הסרטון:</value>
+  </data>
+  <data name="EnterTheTitle" xml:space="preserve">
+    <value>הכנס/י את כותרת התמונה:</value>
+  </data>
+  <data name="EnterTheVideoURL" xml:space="preserve">
+    <value>הכנס/י את כתובת הסרטון:</value>
+  </data>
+  <data name="TheStudentsOfEachGroupAre" xml:space="preserve">
+    <value>חברי הקבוצות:</value>
+  </data>
+  <data name="StudentsRegisteredSuccessfully" xml:space="preserve">
+    <value>התלמידים נרשמו בהצלחה</value>
+  </data>
+</root>

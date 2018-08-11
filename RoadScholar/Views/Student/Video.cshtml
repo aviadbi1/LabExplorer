@@ -1,0 +1,89 @@
+﻿@using System
+@using System.Web.UI.WebControls
+@using RoadScholar.Models
+@model RoadScholar.Models.Video
+
+@{
+    ViewBag.Title = "Video";
+}
+
+<nav class="activities">
+    <ul class="pagination">
+        @for (int i = 0; i < (int)TempData["currActivityIndex"]; i++)
+            {
+            <li class="disabled">
+                <span> @(i + 1) <span class="sr-only"></span></span>
+            </li>
+        }
+        <li class="active">
+            <span>@(((int)TempData["currActivityIndex"]) + 1) <span class="sr-only">(current)</span></span>
+        </li>
+        @for (int i = (int)TempData["currActivityIndex"] + 1; i < (int)TempData["numOfActivities"]; i++)
+            {
+            <li class="disabled">
+                <span> @(i + 1) <span class="sr-only"></span></span>
+            </li>
+        }
+    </ul>
+</nav>
+
+
+@using (Html.BeginForm("DisplaySubmitedVideo", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src=@TempData["URL"] allowfullscreen="allowfullscreen"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("PhoneNumber", TempData["studentPhone"]);
+    @Html.Hidden("RoomId", TempData["studentRoom"]);
+    @Html.Hidden("ActivityId", TempData["activityId"]);
+    @Html.Hidden("ExpId", TempData["expId"]);
+    @Html.Hidden("CurrActivityIndex", TempData["currActivityIndex"]);
+
+
+                <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for=""></label>
+        <div class="col-md-4">
+            <button id="" name="" class="btn btn-primary"> @Resources.Continue </button>
+
+        </div>
+    </div>
+}
+
+
+<script>
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+                var activityID = jsonObj[0]["CurrentActivityID"];
+                if (activityID == 0) {
+                    window.location = "/Student/ViewRoomOrWaitingScreenRefresh/?phone=".concat("@TempData["studentPhone"]").concat("&roomID=").concat(@TempData["studentRoom"]);
+                }
+            }
+        };
+        xhttp.open("GET", "/Student/GetRoomState/?roomID=".concat(@TempData["studentRoom"]), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+    sendRequest();
+
+</script>
+
+
+
+

@@ -1,0 +1,30 @@
+﻿@model RoadScholar.Models.StudentLoginViewModel
+@{
+    ViewBag.Title = Resources.waitScreen;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<img src="../../Content/waiting.gif" class="img-responsive" alt="IMG">
+
+<script>
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+                var activityID = jsonObj[0]["CurrentActivityID"];
+                if (activityID != 0) {
+                    window.location = "/Student/ViewRoomOrWaitingScreenRefresh/?phone=".concat("@Model.PhoneNumber").concat("&roomID=").concat(@Model.Room);
+                }
+            }
+        };
+        xhttp.open("GET", "/Student/GetRoomState/?roomID=".concat(@Model.Room), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+
+    sendRequest();
+
+</script>

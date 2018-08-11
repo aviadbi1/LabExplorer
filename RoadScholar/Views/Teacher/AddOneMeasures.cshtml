@@ -1,0 +1,54 @@
+﻿
+@{
+ViewBag.Title = Resources.AddMeasuresToSet;
+}
+
+<div id="box">
+</div>
+
+<script>
+    //$(document).ready(function () {
+    //    var i = 1;
+    //    $("#add_measure").click(function () {
+    //        $('#addr' + i).html("<td>" + (i + 1) + "</td><td><input name='firstName" + i + "' type='text' placeholder='First Name' class='form-control input-md'  /> </td><td><input name='lastName" + i + "' type='text' placeholder='Last Name' class='form-control input-md'  /> </td><td><input  name='email" + i + "' type='text' placeholder='eMail'  class='form-control input-md'></td><td><input  name='phoneNumber" + i + "' type='text' placeholder='Phone Number'  class='form-control input-md'></td>");
+
+    //        $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+    //        i++;
+    //    });
+
+    //    $("#delete_row").click(function () {
+    //        if (i > 1) {
+    //            $("#addr" + (i - 1)).html('');
+    //            i--;
+    //        }
+    //    });
+
+    //});
+    var DifferenceBetweenMeasures = @TempData["DifferenceBetweenMeasures"];
+    var NumOfMeasures = @TempData["NumOfMeasures"];
+    var NumOfParametersToMeasure = @TempData["NumOfParametersToMeasure"];
+    createTable();
+    function createTable() {
+
+        mytable = $('<table></table>').attr({ id: "basicTable" });
+        var rows = NumOfMeasures;
+        var cols = NumOfParametersToMeasure;
+        var tr = [];
+        for (var i = 0; i < rows; i++) {
+            var row = $('<tr></tr>').attr({ class: [""].join(' ') }).appendTo(mytable);
+            for (var j = 0; j < cols; j++) {
+                // $('<td></td>').input().appendTo(row);
+                //$('<td></td>').append("<td><input type='text' placeholder='The measure' class='form-control input-md'/>");
+                //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);"></a></div>'; //New input field html 
+                //$('<td></td>').input().append(fieldHTML); // Add field html
+               // $('<td></td>').text("   TextInput   ").appendTo(row);
+                $('<td></td>').html("<input name='Insert Measure' placeholder='Insert Measure' class='form-control input-md' min='0' step='0.01' type='number' />").appendTo(row);
+
+            }
+
+        }
+        console.log("TTTTT:" + mytable.html());
+        mytable.appendTo("#box");
+
+    }
+</script>

@@ -1,0 +1,216 @@
+﻿@model RoadScholar.Models.TrueFalseQuestion
+@{
+    ViewBag.Title = Model.ActivityName;
+}
+
+<h2>@Model.ActivityName</h2>
+
+<hr />
+
+<div class="row">
+    <h3> @Model.question </h3>
+</div>
+
+@Resources.True
+<div class="row progress">
+    <div id="progressBarTrue" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        0%
+    </div>
+</div>
+
+@Resources.False
+<div class="row progress">
+    <div id="progressBarFalse" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        0%
+    </div>
+</div>
+
+<div id="explanation" style="visibility:hidden">
+    @{
+        if (Model.correctAnswerBool == true)
+        {
+            <text>@Resources.TheCorrectAnswer &nbsp; @Resources.True</text>
+        }
+        else
+        {
+            <text>@Resources.TheCorrectAnswer &nbsp; @Resources.False</text>
+    }
+}
+    <br />
+    @Resources.TheExplanationIs &nbsp; @Model.explaination
+</div>
+
+
+@{
+    List<RoadScholar.Models.AnswerByPhone> studentsAnswers = ((List<RoadScholar.Models.AnswerByPhone>)Model.studentsAnswers);
+    RoadScholar.BL.RoadScholarContext rscontext = new RoadScholar.BL.RoadScholarContext();
+    <table id="answersTable" class="table" style="visibility:hidden">
+        <tr>
+            <th>
+                @Resources.PhoneNumber
+            </th>
+            <th>
+                @Resources.FirstName
+            </th>
+            <th>
+                @Resources.LastName
+            </th>
+            <th>
+                @Resources.Answer
+            </th>
+        </tr>
+        @for (int i = 0; i < studentsAnswers.Count; i++)
+        {
+            <tr>
+                <td>@studentsAnswers.ElementAt(i).Phone</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).FirstName</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).LastName</td>
+                @{
+                    if (@studentsAnswers.ElementAt(i).Answer == "Yes")
+                    {
+                        <td>@Resources.True</td>
+                    }
+                    else
+                    {
+                        <td>@Resources.False</td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+
+}
+<input id="Anonymous" type="checkbox" checked> @Resources.AnonymousAnswers
+
+<div class="row col-xs-12">
+    <button id="btnAnswers" onclick="showAnswers()" class="btn btn-lg btn-warning col-xs-3"> @Resources.ShowAnswers </button>
+    <button id="btnExplanation" onclick="showExplanation()" class="btn btn-lg btn-danger col-xs-3 col-xs-offset-2"> @Resources.ShowExplanation </button>
+    @Html.ActionLink(Resources.FinishAndSave, "DashboardAfterLog", "Teacher", new { Id = @Model.id }, new { @class = "btn btn-success btn-lg col-xs-2 col-xs-offset-2" })
+</div>
+
+
+
+<script>
+
+    function changeProgressBars(jsonObj) {
+        var falsePrecentage = 0;
+        var truePrecentage = 0;
+        var sumCounters = (jsonObj["CountTrue"] + jsonObj["CountFalse"]);
+        if (sumCounters != 0) {
+            var temp = (jsonObj["CountFalse"] + 0.0) / sumCounters;
+            falsePrecentage = (temp * 100);
+            truePrecentage = 100 - falsePrecentage;
+        }
+
+        var progressBarTrue = document.getElementById("progressBarTrue");
+        var progressBarFalse = document.getElementById("progressBarFalse");
+
+        progressBarTrue.innerHTML = truePrecentage + "%";
+        progressBarFalse.innerHTML = falsePrecentage + "%";
+
+        progressBarTrue.style.width = truePrecentage + "%";
+        progressBarFalse.style.width = falsePrecentage + "%";
+    }
+
+    function changeTable(jsonObj) {
+        var anonymous = document.getElementById("Anonymous").checked;
+        var studentAnswers = jsonObj["StudentAnswers"];
+        var table = document.getElementById("answersTable");
+        if (anonymous) {
+            table.style.visibility = "hidden";
+        }
+        else {
+            table.style.visibility = "visible";
+        }
+        var flagExist = false;
+        for (index in studentAnswers) {
+            phone = studentAnswers[index]["Phone"];
+            firstName = studentAnswers[index]["FirstName"];
+            lastName = studentAnswers[index]["LastName"];
+            answer = studentAnswers[index]["Answer"];
+            flagExist = false;
+
+            for (var i = 1; i < table.rows.length; i++) {
+                var phoneNumberInTable = table.rows[i].cells.item(0).innerHTML;
+                if (phone == phoneNumberInTable) {
+                    flagExist = true;
+                }
+            }
+
+            if (flagExist == false) {
+                var row = table.insertRow(-1);
+                var cellPhone = row.insertCell(0);
+                var cellFirstName = row.insertCell(1);
+                var cellLastName = row.insertCell(2);
+                var cellAnswer = row.insertCell(3);
+                cellPhone.innerHTML = phone;
+                cellFirstName.innerHTML = firstName;
+                cellLastName.innerHTML = lastName;
+                cellAnswer.innerHTML = answer;
+            }
+        }
+
+    }
+
+    function hideTableAndProgressBars() {
+        var progressBarTrue = document.getElementById("progressBarTrue");
+        var progressBarFalse = document.getElementById("progressBarFalse");
+
+        progressBarTrue.innerHTML = 0 + "%";
+        progressBarFalse.innerHTML = 0 + "%";
+
+        progressBarTrue.style.width = 0 + "%";
+        progressBarFalse.style.width = 0 + "%";
+
+        var table = document.getElementById("answersTable");
+        table.style.visibility = "hidden";
+    }
+
+    var show = true;
+    var showExp = true;
+    var timer;
+
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+                changeProgressBars(jsonObj[0]);
+                changeTable(jsonObj[0]);
+            }
+        };
+        xhttp.open("GET", "/Teacher/GetUpdatedModelTrueFalseQuestion/?questionID=".concat(@Model.id), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+    function showAnswers() {
+        if (show) {
+            show = false;
+            document.getElementById("btnAnswers").innerHTML = "@Resources.HideAnswers";
+            sendRequest();
+        }
+        else {
+            show = true;
+            clearTimeout(timer);
+            document.getElementById("btnAnswers").innerHTML = "@Resources.ShowAnswers";
+            hideTableAndProgressBars();
+        }
+    }
+
+    function showExplanation() {
+        if (showExp) {
+            showExp = false;
+            document.getElementById("btnExplanation").innerHTML = "@Resources.HideExplanation";
+            document.getElementById("explanation").style.visibility = "visible";
+        }
+        else {
+            showExp = true;
+            document.getElementById("btnExplanation").innerHTML = "@Resources.ShowExplanation";
+            document.getElementById("explanation").style.visibility = "hidden";
+        }
+    }
+
+</script>

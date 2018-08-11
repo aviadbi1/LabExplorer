@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = @Resources.GroupCreation;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+
+<div id="infoPlace"></div>
+
+
+@Html.ActionLink(Resources.OpenNewGroup, "CreateGroupForm", "Student", new { ActiveExpId = TempData["ActiveExpID"], studentPhone = TempData["StudentPhone"] , studentRoom = TempData["StudentRoom"]}, null)
+
+<script>
+    var errorMessage = "@TempData["errorMessage"]";
+    if(errorMessage.length >0){
+        $("#infoPlace").html("<div class='alert alert-danger'>".concat(errorMessage).concat("</div>"));
+    }
+</script>

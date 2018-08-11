@@ -1,0 +1,22 @@
+﻿@model RoadScholar.Models.Teacher
+@{
+    ViewBag.Title = Resources.Dashboard;
+}
+<hr />
+<div id="alertPlace"></div>
+
+<div class="dashboardButton row col-xs-12">
+    <a href="/Teacher/CreateActivity" class="btn btn-lg btn-primary col-xs-5"><span class="glyphicon glyphicon-wrench"></span> @Resources.CreateActivity</a>
+    <a href="/Activities/ExistingActivities" class="btn btn-lg btn-danger col-xs-5 col-xs-offset-2"><span class="glyphicon glyphicon-th"></span>  @Resources.ExistingActivities</a>
+</div>
+<div class="dashboardButton row col-xs-12">
+    <a href="/Teacher/RegisterStudents" class="btn btn-lg btn-warning col-xs-5"><span class="glyphicon glyphicon-pencil"></span>  @Resources.RegisterStudent</a>
+    <a href="/Activities/ActivityLogs" class="btn btn-lg btn-success col-xs-5 col-xs-offset-2"><span class="glyphicon glyphicon-header"></span> @Resources.History</a>
+</div>
+
+<script>
+    var alertMessage = "@TempData["alertMessage"]";
+    if(alertMessage.length > 0){
+        $("#alertPlace").html("<div class='alert alert-danger'>".concat(alertMessage).concat("</div>"));
+    }
+</script>

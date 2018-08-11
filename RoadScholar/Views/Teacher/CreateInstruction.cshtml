@@ -1,0 +1,46 @@
+﻿@model RoadScholar.Models.Instruction
+
+@{
+    ViewBag.Title = "Create Instruction";
+}
+
+<h2>Create Instruction</h2>
+
+<hr />
+
+@using (Html.BeginForm("SaveInstruction", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ExpID", TempData["ExpID"]);
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="activityNameTextBox">@Resources.EnterTheNameOfTheInstruction</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.ActivityName, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="activityNameTextBox">@Resources.EnterTheInstruction</label>
+        <div class="col-md-4">
+            @Html.TextAreaFor(m => m.Command, 5, 1, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="submitInstructionButton"></label>
+        <div class="col-md-4">
+            <button id="submitInstructionButton" name="submitInstructionButton" class="btn btn-primary">@Resources.Submit</button>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = Resources.AddInstructionsForMeasures;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="box">
+</div>
+
+<div>
+    <button type="submit" id="submitInstructions" class="btn btn-primary">@Resources.Submit</button>
+</div>
+
+<script>
+    var NumOfParametersToMeasure = @TempData["NumOfParametersToMeasure"];
+
+    createTable();
+
+    function createTable() {
+        mytable = $('<table></table>').attr({ id: "basicTable" });
+        var tr = [];
+        for (var i = 0; i < NumOfParametersToMeasure; i++) {
+            var row = $('<tr></tr>').attr({ class: [""].join(' ') }).appendTo(mytable);
+            $('<td></td>').html("<input name='Insert Instruction' id=" + i + " placeholder='Insert Instruction' class='form-control input-md'/>").appendTo(row);
+        }
+        console.log("TTTTT:" + mytable.html());
+        mytable.appendTo("#box");
+
+    }
+
+    function sendInstructionsToServer() {
+        var allInstructions = [];
+
+        for (var i = 0; i < NumOfParametersToMeasure; i++) {
+            allInstructions.push(document.getElementById(i).value);
+        }
+
+        // Dictionary
+        var dictionary = {
+            MeasurementID: @TempData["MeasurementID"],
+            allInstructions: allInstructions
+        };
+
+        // TODO check input
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("SaveInstructionsForMeasurementsInDB", "Teacher")',
+            data: JSON.stringify(dictionary),
+            success: function (e) {
+                $("#renderedBody").html(e.responseText);
+            },
+            error: function (e) {
+                if (e.success) {
+                    $("#renderedBody").html(e.responseText);
+                }
+            }
+        });
+    }
+
+    $("#submitInstructions").click(function () {
+        sendInstructionsToServer();
+    });
+
+</script>

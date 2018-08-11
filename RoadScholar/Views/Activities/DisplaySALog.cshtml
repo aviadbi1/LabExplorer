@@ -1,0 +1,41 @@
+﻿@model RoadScholar.Models.SALog
+@{
+    ViewBag.Title = Resources.ShortHistory;
+}
+<h2>@Resources.ShortHistory</h2>
+<hr />
+<div class="row">
+    <h3> @Model.question </h3>
+</div>
+
+
+@{
+    List<RoadScholar.Models.AnswerByPhone> studentsAnswers = ((List<RoadScholar.Models.AnswerByPhone>)Model.studentsAnswers);
+    RoadScholar.BL.RoadScholarContext rscontext = new RoadScholar.BL.RoadScholarContext();
+    <table id="answersTable" class="table">
+        <tr>
+            <th>
+                @Resources.PhoneNumber
+            </th>
+            <th>
+                @Resources.FirstName
+            </th>
+            <th>
+                @Resources.LastName
+            </th>
+            <th>
+                @Resources.Answer
+            </th>
+        </tr>
+        @for (int i = 0; i < studentsAnswers.Count; i++)
+        {
+            <tr>
+                <td>@studentsAnswers.ElementAt(i).Phone</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).FirstName</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).LastName</td>
+                <td>@studentsAnswers.ElementAt(i).Answer</td>
+            </tr>
+        }
+    </table>
+
+}

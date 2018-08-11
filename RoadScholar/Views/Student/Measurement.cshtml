@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = Resources.MeasurementsSet;
+}
+@Scripts.Render("~/bundles/flipclockScript")
+@Styles.Render("~/bundles/flipclockStyle")
+<nav class="activities">
+    <ul class="pagination">
+        @for (int i = 0; i < (int)TempData["currActivityIndex"]; i++)
+            {
+            <li class="disabled">
+                <span> @(i + 1) <span class="sr-only"></span></span>
+            </li>
+        }
+        <li class="active">
+            <span>@(((int)TempData["currActivityIndex"]) + 1) <span class="sr-only">(current)</span></span>
+        </li>
+        @for (int i = (int)TempData["currActivityIndex"] + 1; i < (int)TempData["numOfActivities"]; i++)
+            {
+            <li class="disabled">
+                <span> @(i + 1) <span class="sr-only"></span></span>
+            </li>
+        }
+    </ul>
+</nav>
+
+
+
+<div class="MeasurementsClockContainer">
+    <div class="MeasurementsClock"></div>
+</div>
+   
+
+<div id="box">
+</div>
+
+<script>
+    var DifferenceBetweenMeasures = @TempData["DifferenceBetweenMeasures"];
+    var NumOfMeasures = @TempData["NumOfMeasures"];
+    var NumOfParametersToMeasure = @TempData["NumOfParametersToMeasure"];
+    var WindowOpenTimeSeconds = @TempData["WindowOpenTimeSeconds"];
+
+    createTable();
+
+    function createTable() {
+        mytable = $('<table></table>').attr({ id: "basicTable" });
+        var rows = NumOfMeasures;
+        var cols = NumOfParametersToMeasure;
+        var tr = [];
+
+        var titlesOfParameters = $('<tr></tr>').attr({ class: [""].join(' ') }).appendTo(mytable);
+        // TODO it works only for one parameter
+        $('<th></th>').html("@TempData["Instruction0"]").appendTo(titlesOfParameters);
+
+        for (var i = 0; i < rows; i++) {
+            var row = $('<tr></tr>').attr({ class: [""].join(' ') }).appendTo(mytable);
+            for (var j = 0; j < cols; j++) {
+                $('<td></td>').html("<input name='Insert Measure' id=" + i + "" + j + " placeholder='Insert Measure' class='form-control input-md' type='number' />").appendTo(row);
+            }
+
+        }
+        console.log("TTTTT:" + mytable.html());
+        mytable.appendTo("#box");
+
+    }
+
+    // From here it is for the timer
+
+    // Timer
+    var clock = new FlipClock($('.MeasurementsClock'), {
+        // ... your options here
+        clockFace: 'MinuteCounter',
+        language: "@(RoadScholar.Helpers.CultureHelper.IsRighToLeft() ? "hebrew" : "english")"      
+    });
+
+
+    clock.setCountdown(true);
+    clock.setTime(DifferenceBetweenMeasures);
+    clock.start(function() {
+        // this (optional) callback will fire each time the clock flips
+    });
+
+    // Logic
+    var fieldToClose = 0;
+    var fieldToOpen = 0;
+
+    for(var i = 0; i < NumOfMeasures; i++){
+        for(var j = 0; j < NumOfParametersToMeasure; j++){
+            document.getElementById(i+""+j).disabled = true;
+            document.getElementById(i+""+j).defaultValue = 0;
+        }
+    }
+
+    // Set timeouts to enable fields
+    for(var i = 0; i < NumOfMeasures; i++){
+        setTimeout(enableFields, DifferenceBetweenMeasures*1000+i*DifferenceBetweenMeasures*1000)
+    }
+
+    // Set timeouts to disable fields
+    for(var i = 0; i < NumOfMeasures; i++){
+        setTimeout(disableFields, DifferenceBetweenMeasures*1000+i*DifferenceBetweenMeasures*1000 + WindowOpenTimeSeconds*1000)
+    }
+
+    function enableFields(){
+        for(var j = 0; j < NumOfParametersToMeasure; j++){
+            if(fieldToOpen >=0 && fieldToOpen < NumOfMeasures){
+                document.getElementById(fieldToOpen+""+j).disabled = false;
+                if(fieldToOpen < NumOfMeasures - 1){
+                    clock.setTime(DifferenceBetweenMeasures);
+                    clock.start(function() {
+                        // this (optional) callback will fire each time the clock flips
+                    });
+                }
+            }
+            //else{
+            //    document.getElementById((NumOfMeasures-1)+""+j).disabled = true; // disable the last one
+            //}
+        }
+
+        fieldToOpen++;
+    }
+
+
+    function sendMeasurementsToServerWhenDisabled(fieldClosed, NumOfMeasures) {
+        var allMeasurements = [];
+
+        var OneMeasure = [];
+        for(var j = 0; j < NumOfParametersToMeasure; j++){
+            OneMeasure.push(document.getElementById(fieldClosed+""+j).value);
+        }
+        allMeasurements.push(OneMeasure);
+
+
+        // Dictionary
+        var dictionary = {
+            GroupID: @TempData["GroupID"],
+            RoomId: @TempData["RoomId"],
+            ExpID: @TempData["ExpID"],
+            StudentPhone: "@TempData["StudentPhone"]",
+            CurrActivityIndex: @TempData["CurrActivityIndex"],
+            allMeasurements: allMeasurements
+        };
+
+        // TODO check input
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("SaveMeasurementsInDB", "Student")',
+            data: JSON.stringify(dictionary),
+            success: function (e) {
+                if(fieldClosed == NumOfMeasures){
+                    $("#renderedBody").html(e.responseText);
+                }
+            },
+            error: function (e) {
+                if (e.success) {
+                    if(fieldClosed == NumOfMeasures){
+                        $("#renderedBody").html(e.responseText);
+                    }
+                }
+            }
+        });
+    }
+
+
+    function disableFields(){
+        for(var j = 0; j < NumOfParametersToMeasure; j++){
+            if(fieldToClose >=0 && fieldToClose < NumOfMeasures)
+                document.getElementById(fieldToClose+""+j).disabled = true;
+
+            //if(fieldToClose == NumOfMeasures){
+            //    document.getElementById((NumOfMeasures-1)+""+j).disabled = true; // disable the last one
+            //}
+        }
+
+        fieldToClose++;
+        // Here we can also use JSON to send the measurements to the server, without waiting for the student submission
+        sendMeasurementsToServerWhenDisabled(fieldToClose-1, NumOfMeasures-1);
+    }
+
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+                var activityID = jsonObj[0]["CurrentActivityID"];
+                if (activityID == 0) {
+                    window.location = "/Student/ViewRoomOrWaitingScreenRefresh/?phone=".concat("@TempData["StudentPhone"]").concat("&roomID=").concat(@TempData["RoomID"]);
+                }
+            }
+        };
+        xhttp.open("GET", "/Student/GetRoomState/?phone=".concat("@TempData["StudentPhone"]").concat("&roomID=").concat(@TempData["RoomID"]), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+    sendRequest();
+
+</script>

@@ -1,0 +1,94 @@
+﻿@using System
+@using System.Web.UI.WebControls
+@using RoadScholar.Models
+@model RoadScholar.Models.TrueFalseQuestionResponse
+@{
+    ViewBag.Title = Resources.TrueFalseQuestion;
+}
+
+
+
+@if ((long)TempData["expId"] != -1)
+{
+    <nav class="activities">
+        <ul class="pagination">
+            @for (int i = 0; i < (int)TempData["currActivityIndex"]; i++)
+            {
+                <li class="disabled">
+                    <span> @(i + 1) <span class="sr-only"></span></span>
+                </li>
+            }
+            <li class="active">
+                <span>@(((int)TempData["currActivityIndex"]) + 1) <span class="sr-only">(current)</span></span>
+            </li>
+            @for (int i = (int)TempData["currActivityIndex"] + 1; i < (int)TempData["numOfActivities"]; i++)
+            {
+                <li class="disabled">
+                    <span> @(i + 1) <span class="sr-only"></span></span>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+<h2>@Resources.TrueFalseQuestion</h2>
+<p>@TempData["Question"]</p>
+
+@using (Html.BeginForm("DisplaySubmitedTFQuestion", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <!-- Multiple Radios -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="radios">@Resources.YourAnswer</label>
+        <div class="col-md-4">
+            @Html.RadioButtonFor(m => m.Answer, true, new { @checked = "checked" }) @Resources.True
+            <br />
+            @Html.RadioButtonFor(m => m.Answer, false) @Resources.False
+        </div>
+    </div>
+
+    @Html.Hidden("PhoneNumber", TempData["studentPhone"]);
+    @Html.Hidden("RoomId", TempData["studentRoom"]);
+    @Html.Hidden("ActivityId", TempData["activityId"]);
+    @Html.Hidden("ExpId", TempData["expId"]);
+    @Html.Hidden("CurrActivityIndex", TempData["currActivityIndex"]);
+
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for=""></label>
+        <div class="col-md-4">
+            @if ((long)TempData["expId"] != -1)
+                {
+                <button id="" name="" class="btn btn-primary"> @Resources.Continue </button>
+            }
+            else
+            {
+                <button id="" name="" class="btn btn-primary"> @Resources.Submit </button>
+            }
+        </div>
+    </div>
+}
+
+<script>
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+                var activityID = jsonObj[0]["CurrentActivityID"];
+                if (activityID == 0) {
+                    window.location = "/Student/ViewRoomOrWaitingScreenRefresh/?phone=".concat("@TempData["studentPhone"]").concat("&roomID=").concat(@TempData["studentRoom"]);
+                }
+            }
+        };
+        xhttp.open("GET", "/Student/GetRoomState/?phone=".concat("@TempData["studentPhone"]").concat("&roomID=").concat(@TempData["studentRoom"]), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+    sendRequest();
+
+</script>

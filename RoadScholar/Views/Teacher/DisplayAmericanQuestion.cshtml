@@ -1,0 +1,294 @@
+﻿@model RoadScholar.Models.AmericanQuestion
+
+@{
+    ViewBag.Title = Model.ActivityName;
+}
+
+<h2>@Model.ActivityName</h2>
+
+<hr />
+
+
+<div class="row">
+    <h3> @Model.question </h3>
+</div>
+
+@{
+    int firstPrecentage = 0;
+    int secondPrecentage = 0;
+    int thirdPrecentage = 0;
+    int fourthPrecentage = 0;
+    int sumCounters = (@Model.counterFirst + @Model.counterSecond + @Model.counterThird + @Model.counterFourth);
+    if (sumCounters != 0)
+    {
+        double temp = (@Model.counterFirst + 0.0) / sumCounters;
+        firstPrecentage = (int)(temp * 100);
+        temp = (@Model.counterSecond + 0.0) / sumCounters;
+        secondPrecentage = (int)(temp * 100);
+        temp = (@Model.counterThird + 0.0) / sumCounters;
+        thirdPrecentage = (int)(temp * 100);
+        temp = (@Model.counterFourth + 0.0) / sumCounters;
+        fourthPrecentage = (int)(temp * 100);
+    }
+
+}
+
+@Model.firstAnswer
+<div class="row progress">
+    <div id="progressBar1" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        0%
+    </div>
+</div>
+
+@Model.secondAnswer
+<div class="row progress">
+    <div id="progressBar2" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        0%
+    </div>
+</div>
+
+@Model.thirdAnswer
+<div class="row progress">
+    <div id="progressBar3" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        0%
+    </div>
+</div>
+
+@Model.fourthAnswer
+<div class="row progress">
+    <div id="progressBar4" class="progress-bar progress-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        0%
+    </div>
+</div>
+
+<div id="explanation" style="visibility:hidden">
+    @{
+        if (Model.correctAnswer == 1)
+        {
+            <text>@Resources.TheCorrectAnswer &nbsp; @Model.firstAnswer </text>
+        }
+        else if(Model.correctAnswer == 2)
+        {
+            < text > @Resources.TheCorrectAnswer & nbsp; @Model.secondAnswer </ text >
+        }
+        else if (Model.correctAnswer == 3)
+        {
+            < text > @Resources.TheCorrectAnswer & nbsp; @Model.thirdAnswer </ text >
+        }
+        else
+        {
+            < text > @Resources.TheCorrectAnswer & nbsp; @Model.fourthAnswer </ text >
+        }
+    }
+    <br />
+    @Resources.TheExplanationIs &nbsp; @Model.explaination
+</div>
+
+@{
+    List<RoadScholar.Models.AnswerByPhone> studentsAnswers = ((List<RoadScholar.Models.AnswerByPhone>)Model.studentsAnswers);
+    RoadScholar.BL.RoadScholarContext rscontext = new RoadScholar.BL.RoadScholarContext();
+    <table id="answersTable" class="table" style="visibility:hidden">
+        <tr>
+            <th>
+                @Resources.PhoneNumber
+            </th>
+            <th>
+                @Resources.FirstName
+            </th>
+            <th>
+                @Resources.LastName
+            </th>
+            <th>
+                @Resources.Answer
+            </th>
+        </tr>
+        @for (int i = 0; i < studentsAnswers.Count; i++)
+        {
+            <tr>
+                <td>@studentsAnswers.ElementAt(i).Phone</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).FirstName</td>
+                <td>@rscontext.getStudent(studentsAnswers.ElementAt(i).Phone, Model.RoomId).LastName</td>
+                @{
+                    if (@studentsAnswers.ElementAt(i).Answer == "Answer 1")
+                    {
+                        <td>@Resources.FirstAnswer</td>
+                    }
+                    else if (@studentsAnswers.ElementAt(i).Answer == "Answer 2")
+                    {
+                        <td>@Resources.SecondAnswer</td>
+                    }
+                    else if (@studentsAnswers.ElementAt(i).Answer == "Answer 3")
+                    {
+                        <td>@Resources.ThirdAnswer</td>
+                    }
+                    else
+                    {
+                        <td>@Resources.FourthAnswer</td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+
+}
+
+<input id="Anonymous" type="checkbox" checked> @Resources.AnonymousAnswers
+
+<div class="row col-xs-12">
+    <button id="btnAnswers" onclick="showAnswers()" class="btn btn-lg btn-warning col-xs-3"> @Resources.ShowAnswers </button>
+    <button id="btnExplanation" onclick="showExplanation()" class="btn btn-lg btn-danger col-xs-3 col-xs-offset-2"> @Resources.ShowExplanation </button>
+    @Html.ActionLink(Resources.FinishAndSave, "DashboardAfterLog", "Teacher", new { Id = @Model.id }, new { @class = "btn btn-success btn-lg col-xs-2 col-xs-offset-2" })
+</div>
+
+
+
+<script>
+
+    function changeProgressBars(jsonObj) {
+        var firstPrecentage = 0;
+        var secondPrecentage = 0;
+        var thirdPrecentage = 0;
+        var fourthPrecentage = 0;
+
+        var sumCounters = (jsonObj["CountFirst"] + jsonObj["CountSecond"] + jsonObj["CountThird"] + jsonObj["CountFourth"]);
+        if (sumCounters != 0) {
+            var temp = (jsonObj["CountFirst"] + 0.0) / sumCounters;
+            firstPrecentage = (temp * 100);
+            temp = (jsonObj["CountSecond"] + 0.0) / sumCounters;
+            secondPrecentage = (temp * 100);
+            temp = (jsonObj["CountThird"] + 0.0) / sumCounters;
+            thirdPrecentage = (temp * 100);
+            temp = (jsonObj["CountFourth"] + 0.0) / sumCounters;
+            fourthPrecentage = (temp * 100);
+        }
+
+        var progressBar1 = document.getElementById("progressBar1");
+        var progressBar2 = document.getElementById("progressBar2");
+        var progressBar3 = document.getElementById("progressBar3");
+        var progressBar4 = document.getElementById("progressBar4");
+
+
+        progressBar1.innerHTML = firstPrecentage + "%";
+        progressBar2.innerHTML = secondPrecentage + "%";
+        progressBar3.innerHTML = thirdPrecentage + "%";
+        progressBar4.innerHTML = fourthPrecentage + "%";
+
+        progressBar1.style.width = firstPrecentage + "%";
+        progressBar2.style.width = secondPrecentage + "%";
+        progressBar3.style.width = thirdPrecentage + "%";
+        progressBar4.style.width = fourthPrecentage + "%";
+    }
+
+    function changeTable(jsonObj) {
+        var anonymous = document.getElementById("Anonymous").checked;
+        var studentAnswers = jsonObj["StudentAnswers"];
+        var table = document.getElementById("answersTable");
+        if (anonymous) {
+            table.style.visibility = "hidden";
+        }
+        else {
+            table.style.visibility = "visible";
+        }
+
+        var flagExist = false;
+        for (index in studentAnswers) {
+            phone = studentAnswers[index]["Phone"];
+            firstName = studentAnswers[index]["FirstName"];
+            lastName = studentAnswers[index]["LastName"];
+            answer = studentAnswers[index]["Answer"];
+            flagExist = false;
+
+            for (var i = 1; i < table.rows.length; i++) {
+                var phoneNumberInTable = table.rows[i].cells.item(0).innerHTML;
+                if (phone == phoneNumberInTable) {
+                    flagExist = true;
+                }
+            }
+
+            if (flagExist == false) {
+                var row = table.insertRow(-1);
+                var cellPhone = row.insertCell(0);
+                var cellFirstName = row.insertCell(1);
+                var cellLastName = row.insertCell(2);
+                var cellAnswer = row.insertCell(3);
+                cellPhone.innerHTML = phone;
+                cellFirstName.innerHTML = firstName;
+                cellLastName.innerHTML = lastName;
+                cellAnswer.innerHTML = answer;
+            }
+        }
+
+    }
+
+    function hideTableAndProgressBars() {
+        var progressBar1 = document.getElementById("progressBar1");
+        var progressBar2 = document.getElementById("progressBar2");
+        var progressBar3 = document.getElementById("progressBar3");
+        var progressBar4 = document.getElementById("progressBar4");
+
+
+        progressBar1.innerHTML = 0 + "%";
+        progressBar2.innerHTML = 0 + "%";
+        progressBar3.innerHTML = 0 + "%";
+        progressBar4.innerHTML = 0 + "%";
+
+        progressBar1.style.width = 0 + "%";
+        progressBar2.style.width = 0 + "%";
+        progressBar3.style.width = 0 + "%";
+        progressBar4.style.width = 0 + "%";
+
+        var table = document.getElementById("answersTable");
+        table.style.visibility = "hidden";
+    }
+
+    var show = true;
+    var showExp = true;
+    var timer;
+
+    function sendRequest() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonObj = JSON.parse(xhttp.responseText);
+                changeProgressBars(jsonObj[0]);
+                changeTable(jsonObj[0]);
+            }
+        };
+        xhttp.open("GET", "/Teacher/GetUpdatedModelAmericanQuestion/?questionID=".concat(@Model.id), true);
+        xhttp.send();
+        timer = setTimeout(sendRequest, 2000);
+    }
+
+    function showAnswers() {
+
+        if (show) {
+            show = false;
+            document.getElementById("btnAnswers").innerHTML = "@Resources.HideAnswers";
+            sendRequest();
+        }
+        else {
+            show = true;
+            clearTimeout(timer);
+            document.getElementById("btnAnswers").innerHTML = "@Resources.ShowAnswers";
+            hideTableAndProgressBars();
+        }
+    }
+
+    function showExplanation() {
+        if (showExp) {
+            showExp = false;
+            document.getElementById("btnExplanation").innerHTML = "@Resources.HideExplanation";
+            document.getElementById("explanation").style.visibility = "visible";
+        }
+        else {
+            showExp = true;
+            document.getElementById("btnExplanation").innerHTML = "@Resources.ShowExplanation";
+            document.getElementById("explanation").style.visibility = "hidden";
+        }
+    }
+
+</script>

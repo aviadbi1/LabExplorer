@@ -1,0 +1,17 @@
+1.Changing css:
+http://bootstrap-live-customizer.com
+save LESS variables file.
+
+2.go to:
+http://bootswatchr.com/
+paste the LESS variables
+enable RTL,Responsive
+Save instead of bootstrap-rtl.css
+
+3. swap 'left' and 'right'
+
+
+@font-face {
+    font-family: 'Choco';
+    src: url('../fonts/CHOCRG__.TTF') format('truetype');
+}

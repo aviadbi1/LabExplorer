@@ -1,0 +1,71 @@
+﻿@model RoadScholar.Models.TrueFalseQuestion
+
+@{
+    ViewBag.Title = Resources.CreateTrueFalseQuestion;
+}
+
+<h2>@Resources.CreateTrueFalseQuestion</h2>
+
+<hr />
+
+@using (Html.BeginForm("SaveTrueFalseQuestion", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ExpID", TempData["ExpID"]);
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="activityNameTextBox">@Resources.EnterTheNameOfTheActivity</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.ActivityName, new {@class = "form-control"})
+        </div>
+    </div>
+
+     <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="questionTextBox">@Resources.EnterYourQuestion</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.question, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <!-- Multiple Radios -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="radios">@Resources.EnterTheCorrectAnswer</label>
+        <div class="col-md-4">
+            @Html.RadioButtonFor(m => m.correctAnswerBool, true, new { @checked = "checked" }) @Resources.True
+            <br />
+            @Html.RadioButtonFor(m => m.correctAnswerBool, false) @Resources.False
+        </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="explainationTextBox">@Resources.Explaination</label>
+        <div class="col-md-4">
+            @Html.TextAreaFor(m => m.explaination, 5, 1, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="submitQuestionButton"></label>
+        <div class="col-md-4">
+            <button id="submitQuestionButton" name="submitQuestionButton" class="btn btn-primary">@Resources.CreateQuestion</button>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+
+
